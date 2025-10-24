@@ -1,0 +1,65 @@
+{
+  "name": "warrior-php/framework",
+  "type": "project",
+  "keywords": [
+    "high performance",
+    "http service",
+    "download cms"
+  ],
+  "homepage": "https://warriorphp.com",
+  "license": "MIT",
+  "description": "High performance HTTP Service Framework.",
+  "authors": [
+    {
+      "name": "warrior",
+      "email": "support@warriorphp.com",
+      "homepage": "https://warriorphp.com",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "email": "support@warriorphp.com",
+    "issues": "https://github.com/warrior-php/framework/issues",
+    "forum": "https://warriorphp.com/forum",
+    "wiki": "https://warriorphp.com/doc/framework",
+    "source": "https://github.com/warrior-php/framework"
+  },
+  "require": {
+    "php": ">=8.3",
+    "workerman/webman-framework": "^2.1",
+    "monolog/monolog": "^2.0",
+    "webman/database": "^2.1",
+    "illuminate/pagination": "^12.34",
+    "illuminate/events": "^12.34",
+    "vlucas/phpdotenv": "^5.6",
+    "twig/twig": "^3.21"
+  },
+  "suggest": {
+    "ext-event": "For better performance. "
+  },
+  "autoload": {
+    "psr-4": {
+      "": "./",
+      "Addons\\": "./addons",
+      "App\\": "./app"
+    }
+  },
+  "scripts": {
+    "post-package-install": [
+      "support\\Plugin::install"
+    ],
+    "post-package-update": [
+      "support\\Plugin::install"
+    ],
+    "pre-package-uninstall": [
+      "support\\Plugin::uninstall"
+    ]
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "config": {
+    "allow-plugins": {
+      "php-http/discovery": true
+    }
+  }
+}
