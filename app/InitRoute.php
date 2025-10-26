@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Attributes\Route as RouteAttr;
+use App\Middleware\AccessControl;
 use ReflectionClass;
 use ReflectionMethod;
 use Webman\Route;
@@ -19,22 +20,7 @@ class InitRoute
      */
     public static function registerRoutes(): void
     {
-        // 需要扫描的根目录及命名空间前缀
-        $scanDirs = [
-            base_path('addons') => 'addons'
-        ];
-
-        foreach ($scanDirs as $rootDir => $namespacePrefix) {
-            if (!is_dir($rootDir)) continue;
-            foreach (scandir($rootDir) as $appDir) {
-                if ($appDir === '.' || $appDir === '..') continue;
-                $controllerDir = "$rootDir/$appDir/controller";
-                if (!is_dir($controllerDir)) continue;
-                $namespace = "$namespacePrefix\\$appDir\\controller";
-                self::scanAndRegisterRecursive($controllerDir, $namespace);
-            }
-        }
-
+        // TODO 这里需要处理多应用的路由配置
         // 扫描 app/Controller
         $appControllerDir = base_path('app/Controller');
         if (is_dir($appControllerDir)) {
@@ -53,20 +39,25 @@ class InitRoute
     protected static function scanAndRegisterRecursive(string $dir, string $namespace): void
     {
         foreach (scandir($dir) as $item) {
-            if ($item === '.' || $item === '..') continue;
+            if ($item === '.' || $item === '..') {
+                continue;
+            }
 
             $path = "$dir/$item";
 
-            // 如果是目录，递归扫描
+            // 递归扫描子目录
             if (is_dir($path)) {
                 $subNamespace = $namespace . '\\' . $item;
                 self::scanAndRegisterRecursive($path, $subNamespace);
+                continue;
             }
 
-            // 如果是 PHP 文件，注册路由
+            // 处理 PHP 控制器文件
             if (is_file($path) && str_ends_with($item, '.php')) {
                 $class = $namespace . '\\' . basename($item, '.php');
-                if (!class_exists($class)) continue;
+                if (!class_exists($class)) {
+                    continue;
+                }
 
                 $ref = new ReflectionClass($class);
                 foreach ($ref->getMethods(ReflectionMethod::IS_PUBLIC) as $method) {
@@ -74,16 +65,17 @@ class InitRoute
                         /** @var RouteAttr $meta */
                         $meta = $attr->newInstance();
                         $callback = [$class, $method->getName()];
-                        // 处理 name: 去掉开头的 /，其余 / 替换为 .
-                        $routeName = ltrim($meta->path, '/'); // 去掉开头 /
-                        $routeName = str_replace('/', '.', $routeName); // / -> .
+
+                        // 生成路由名：去掉首个 /，其余 / 转为 .
+                        $routeName = ltrim($meta->path, '/');
+                        $routeName = str_replace('/', '.', $routeName);
+
                         foreach ($meta->methods as $httpMethod) {
                             $httpMethod = strtoupper($httpMethod);
-                            if ($httpMethod === 'ANY') {
-                                Route::any($meta->path, $callback)->name($routeName);
-                            } else {
-                                Route::add($httpMethod, $meta->path, $callback)->name($routeName);
-                            }
+                            $route = $httpMethod === 'ANY' ? Route::any($meta->path, $callback) : Route::add($httpMethod, $meta->path, $callback);
+                            $route->name($routeName)->middleware([
+                                AccessControl::class,
+                            ]);
                         }
                     }
                 }
