@@ -23,6 +23,7 @@ class InitRoute
         $scanDirs = [
             base_path('addons') => 'addons'
         ];
+
         foreach ($scanDirs as $rootDir => $namespacePrefix) {
             if (!is_dir($rootDir)) continue;
             foreach (scandir($rootDir) as $appDir) {
@@ -73,13 +74,15 @@ class InitRoute
                         /** @var RouteAttr $meta */
                         $meta = $attr->newInstance();
                         $callback = [$class, $method->getName()];
-
+                        // 处理 name: 去掉开头的 /，其余 / 替换为 .
+                        $routeName = ltrim($meta->path, '/'); // 去掉开头 /
+                        $routeName = str_replace('/', '.', $routeName); // / -> .
                         foreach ($meta->methods as $httpMethod) {
                             $httpMethod = strtoupper($httpMethod);
                             if ($httpMethod === 'ANY') {
-                                Route::any($meta->path, $callback);
+                                Route::any($meta->path, $callback)->name($routeName);
                             } else {
-                                Route::add($httpMethod, $meta->path, $callback);
+                                Route::add($httpMethod, $meta->path, $callback)->name($routeName);
                             }
                         }
                     }

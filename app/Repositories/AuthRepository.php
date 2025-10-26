@@ -6,7 +6,7 @@ use App\Model\Roles;
 use Illuminate\Support\Collection;
 
 /**
- * Class AuthRepositories
+ * Class AuthRepository
  *
  * 该类负责与「角色与权限」相关的数据操作。
  * 主要用于从数据库中根据角色 ID 获取对应的权限规则（rules）。
@@ -16,7 +16,7 @@ use Illuminate\Support\Collection;
  *
  * @package App\Repositories
  */
-class AuthRepositories
+class AuthRepository
 {
     /**
      * 根据角色 ID 列表获取对应的权限规则字段
@@ -30,7 +30,7 @@ class AuthRepositories
      *
      * @example
      * ```php
-     * $repo = new AuthRepositories();
+     * $repo = new AuthRepository();
      * $rules = $repo->rules([1, 2, 3]);
      * // 返回类似 Collection(['user.view', 'user.edit', 'order.manage'])
      * ```

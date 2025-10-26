@@ -16,4 +16,13 @@ class Index extends Common
     {
         return view('index');
     }
+
+    /**
+     * @return Response
+     */
+    #[Route(path: "/admin/login")]
+    public function login(): Response
+    {
+        return view('index');
+    }
 }
