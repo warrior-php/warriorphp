@@ -22,7 +22,7 @@ global $argv;
 return [
     'Warrior' => [
         'handler'     => Webman\App::class,
-        'listen'      => 'http://0.0.0.0:8787',
+        'listen'      => 'http://0.0.0.0:8888',
         'count'       => 1,//cpu_count() * 4,
         'user'        => '',
         'group'       => '',
