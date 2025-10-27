@@ -2,8 +2,8 @@
 
 namespace App\Controller\Admin;
 
-use App\Attributes\Route;
 use App\Controller\Common;
+use extend\Attribute\Route;
 use support\Response;
 
 class Index extends Common

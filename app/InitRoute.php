@@ -2,8 +2,8 @@
 
 namespace App;
 
-use App\Attributes\Route as RouteAttr;
 use App\Middleware\AccessControl;
+use extend\Attribute\Route as RouteAttr;
 use ReflectionClass;
 use ReflectionMethod;
 use Webman\Route;
@@ -62,7 +62,6 @@ class InitRoute
                 $ref = new ReflectionClass($class);
                 foreach ($ref->getMethods(ReflectionMethod::IS_PUBLIC) as $method) {
                     foreach ($method->getAttributes(RouteAttr::class) as $attr) {
-                        /** @var RouteAttr $meta */
                         $meta = $attr->newInstance();
                         $callback = [$class, $method->getName()];
 

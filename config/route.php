@@ -15,7 +15,7 @@ declare(strict_types=1);
  */
 
 use App\InitRoute;
-use support\Request;
+use Support\Request;
 use Webman\Route;
 
 // 禁用默认路由

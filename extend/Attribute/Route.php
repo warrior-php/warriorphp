@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Attributes;
+namespace extend\Attribute;
 
 use Attribute;
 

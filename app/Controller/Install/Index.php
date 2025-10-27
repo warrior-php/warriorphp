@@ -2,8 +2,8 @@
 
 namespace App\Controller\Install;
 
-use App\Attributes\Route;
 use App\Controller\Common;
+use extend\Attribute\Route;
 
 class Index extends Common
 {

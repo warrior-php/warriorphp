@@ -42,7 +42,6 @@
   "autoload": {
     "psr-4": {
       "": "./",
-      "Addons\\": "./addons",
       "App\\": "./app"
     }
   },

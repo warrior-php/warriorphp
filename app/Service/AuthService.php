@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Services;
+namespace App\Service;
 
 use Exception;
 use ReflectionClass;
 use ReflectionException;
 
-class AuthServices
+class AuthService
 {
     /**
      * @param string $controller

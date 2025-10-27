@@ -2,7 +2,7 @@
 
 namespace App\Model;
 
-use support\exception\BusinessException;
+use App\Exception\BusinessException;
 use support\Model;
 
 /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace extend\View;
+namespace Extend\View;
 
 use Twig\Environment;
 use Twig\Error\LoaderError;

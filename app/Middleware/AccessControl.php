@@ -2,10 +2,9 @@
 
 namespace App\Middleware;
 
-use App\Services\AuthServices;
+use App\Service\AuthService;
 use DI\Attribute\Inject;
 use ReflectionException;
-use support\exception\BusinessException;
 use Webman\Http\Request;
 use Webman\Http\Response;
 use Webman\MiddlewareInterface;
@@ -13,14 +12,14 @@ use Webman\MiddlewareInterface;
 class AccessControl implements MiddlewareInterface
 {
     #[Inject]
-    protected AuthServices $authServices;
+    protected AuthService $authServices;
 
     /**
      * @param Request  $request
      * @param callable $handler
      *
      * @return Response
-     * @throws ReflectionException|BusinessException
+     * @throws ReflectionException
      */
     public function process(Request $request, callable $handler): Response
     {

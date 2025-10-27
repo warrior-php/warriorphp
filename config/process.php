@@ -15,7 +15,7 @@ declare(strict_types=1);
  */
 
 use support\Log;
-use support\Request;
+use Support\Request;
 
 global $argv;
 

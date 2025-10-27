@@ -1,6 +1,6 @@
 <?php
 
-namespace extend\Utils;
+namespace Extend\Utils;
 
 class Date
 {
