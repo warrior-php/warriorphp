@@ -15,6 +15,5 @@ declare(strict_types=1);
  */
 
 return [
-    support\bootstrap\Session::class,
-    App\InitApp::class
+    support\bootstrap\Session::class
 ];

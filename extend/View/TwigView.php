@@ -34,7 +34,7 @@ class TwigView implements View
      * @return string
      * @throws LoaderError
      * @throws RuntimeError
-     * @throws SyntaxError resources
+     * @throws SyntaxError resource
      */
     public static function render(string $template, array $vars, ?string $app = null, ?string $plugin = null): string
     {

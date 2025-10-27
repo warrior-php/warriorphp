@@ -14,7 +14,7 @@ if (!function_exists('views_path')) {
      */
     function views_path(string $path = 'views'): string
     {
-        return path_combine(BASE_PATH . DIRECTORY_SEPARATOR . 'resources', $path);
+        return path_combine(BASE_PATH . DIRECTORY_SEPARATOR . 'resource', $path);
     }
 }
 
@@ -39,5 +39,23 @@ if (!function_exists('url')) {
 
         // Apply rtrim to remove trailing slashes
         return rtrim($route, '/');
+    }
+}
+
+// 解析 Accept-Language HTTP 请求头来获取用户浏览器或设备的首选语言
+if (!function_exists('setupLocale')) {
+    /**
+     * 初始化语言环境，并设置到 session 中
+     *
+     * @return string
+     * @throws Exception
+     */
+    function setupLocale(): string
+    {
+        $language = config('translation.locale', 'en');
+        // 标准化语言代码
+        $language = $language === 'zh' ? 'zh-CN' : $language;
+        session()->set('lang', $language);
+        return $language;
     }
 }
