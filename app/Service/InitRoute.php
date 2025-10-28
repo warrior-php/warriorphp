@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Service;
 
 use App\Middleware\AccessControl;
 use extend\Attribute\Route as RouteAttr;

@@ -14,8 +14,8 @@ declare(strict_types=1);
  * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-use Extend\View\TwigExtension;
-use Extend\View\TwigView;
+use extend\Utils\View\TwigExtension;
+use extend\Utils\View\TwigView;
 
 return [
     'handler'   => TwigView::class,
