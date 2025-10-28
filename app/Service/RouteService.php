@@ -8,7 +8,7 @@ use ReflectionClass;
 use ReflectionMethod;
 use Webman\Route;
 
-class InitRoute
+class RouteService
 {
     /**
      * 注册应用路由

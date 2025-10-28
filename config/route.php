@@ -14,14 +14,14 @@ declare(strict_types=1);
  * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-use App\Service\InitRoute;
+use App\Service\RouteService;
 use Support\Request;
 use Webman\Route;
 
 // 禁用默认路由
 Route::disableDefaultRoute();
 // 注册应用路由
-InitRoute::registerRoutes();
+RouteService::registerRoutes();
 
 // 404处理路由
 Route::fallback(function (Request $request, $status) {
