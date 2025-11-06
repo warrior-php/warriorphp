@@ -32,10 +32,9 @@ class Common
     /**
      * 设置语言
      */
-    #[Route(path: "/setLang")]
+    #[Route(path: "/setLang", methods: ['POST'])]
     public function setLang()
     {
-        dump(111);
         return 111;
     }
 }

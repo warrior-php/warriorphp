@@ -11,7 +11,7 @@ class Index extends Common
     /**
      * @return Response
      */
-    #[Route(path: "/index")]
+    #[Route(path: "/index", methods: ['GET'])]
     public function index(): Response
     {
         Admin::findByIdentifier('admin');

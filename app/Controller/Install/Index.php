@@ -20,7 +20,7 @@ class Index extends Common
     /**
      * @return string
      */
-    #[Route(path: "/install/index")]
+    #[Route(path: "/install/index", methods: ['GET'])]
     public function index(): string
     {
         return 'index';

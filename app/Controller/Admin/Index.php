@@ -11,7 +11,7 @@ class Index extends Common
     /**
      * @return Response
      */
-    #[Route(path: "/admin/index")]
+    #[Route(path: "/admin/index", methods: ['GET'])]
     public function index(): Response
     {
         return view('index');
@@ -20,7 +20,7 @@ class Index extends Common
     /**
      * @return Response
      */
-    #[Route(path: "/admin/login")]
+    #[Route(path: "/admin/login", methods: ['GET', 'POST'])]
     public function login(): Response
     {
         return view('admin/login');
