@@ -1,7 +1,13 @@
 <?php
 
 return [
-    'admin' => [
+    'unknown'      => 'Unknown error',
+    'success'      => 'Success',
+    'redirect'     => 'Redirect',
+    'unauthorized' => 'Unauthorized',
+    'forbidden'    => 'Forbidden',
+    // 后台相关
+    'admin'        => [
         'login' => [
             'key1' => 'Username',
             'key2' => 'Password',

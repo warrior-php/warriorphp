@@ -74,7 +74,7 @@ if (!function_exists('result')) {
      */
     function result(int $code, string|array $msg = '', array $var = []): Response
     {
-        $message = trans(STATUS_CODE[$code] ?? 'error.unknown');
+        $message = trans(STATUS_CODE[$code] ?? 'unknown');
         if (is_array($msg) || is_object($msg)) {
             $var = $msg;
             $data['message'] = $message;
