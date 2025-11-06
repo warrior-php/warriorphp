@@ -1,8 +1,11 @@
 <?php
 declare(strict_types=1);
+
 /**
  * Here is functions.
  */
+
+use support\Response;
 
 if (!function_exists('views_path')) {
     /**
@@ -57,5 +60,39 @@ if (!function_exists('setupLocale')) {
         $language = $language === 'zh' ? 'zh-CN' : $language;
         session()->set('lang', $language);
         return $language;
+    }
+}
+
+// Result
+if (!function_exists('result')) {
+    /**
+     * @param int          $code
+     * @param string|array $msg
+     * @param array        $var
+     *
+     * @return Response
+     */
+    function result(int $code, string|array $msg = '', array $var = []): Response
+    {
+        $message = trans(STATUS_CODE[$code] ?? 'error.unknown');
+        if (is_array($msg) || is_object($msg)) {
+            $var = $msg;
+            $data['message'] = $message;
+        } else {
+            $data['message'] = $msg ?: $message;
+        }
+
+        if (isset($var['url'])) {
+            $data['url'] = $var['url'];
+        }
+
+        //控制返回的参数后台是否执行iframe父层
+        if (isset($var['is_parent'])) {
+            $data['is_parent'] = $var['is_parent'];
+        }
+        $data['code'] = $code;
+        $data['data'] = $var;
+
+        return new Response(200, ['Content-Type' => 'application/json'], json_encode($data, JSON_UNESCAPED_UNICODE));
     }
 }

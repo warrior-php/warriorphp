@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use extend\Attribute\Route;
+use support\Response;
 
 class Common
 {
@@ -27,14 +28,16 @@ class Common
      *
      * @var string[]
      */
-    protected array $noNeedAuth = [];
+    protected array $noNeedAuth = ['logout'];
+
 
     /**
      * 设置语言
+     * @return Response
      */
     #[Route(path: "/setLang", methods: ['POST'])]
-    public function setLang()
+    public function setLang(): Response
     {
-        return 111;
+        return result(200);
     }
 }

@@ -76,5 +76,16 @@ class InitApp implements MiddlewareInterface
     {
         defined('DS') or define('DS', DIRECTORY_SEPARATOR);
         defined('VERSION') or define('VERSION', self::$version);
+        defined('STATUS_CODE') or define('STATUS_CODE', [
+            // 错误码定义
+            0   => 'Unknown error',
+            200 => 'Success',
+            202 => 'Success',
+            204 => 'Success',
+            302 => 'Redirect',
+            401 => 'Unauthorized',
+            403 => 'Forbidden',
+            404 => 'Not Found',
+        ]);
     }
 }
