@@ -35,22 +35,18 @@ class InitApp implements MiddlewareInterface
         $isInstalled = file_exists(base_path('/resource/install.lock'));
         $controller = request()->controller ?? '';
         $isInstallController = str_contains($controller, '\\Install\\');
-
         // 未安装 & 非安装控制器 -> 重定向安装
         if (!$isInstalled && !$isInstallController) {
             return redirect(url('install.index'));
         }
-
         // 已安装 & 是安装控制器 -> 抛出异常阻止重复安装
         if ($isInstalled && $isInstallController) {
             throw new BusinessException(message: trans("The system has been installed. To reinstall, delete the resource/install.lock file."));
         }
-
         // 共享全局视图变量
         View::assign([
             'lang' => session('lang'),
         ]);
-
         return $handler($request);
     }
 

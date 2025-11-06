@@ -90,7 +90,7 @@
                             body: JSON.stringify({lang})
                         });
                         const data = await res.json();
-                        if (data.code === 0) {
+                        if (data.code === 200) {
                             // 清除旧状态
                             dropdownItems.forEach(i => {
                                 i.classList.remove('active');
