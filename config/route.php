@@ -23,16 +23,18 @@ Route::disableDefaultRoute();
 //// 注册应用路由
 RouteService::registerRoutes();
 
-// 404处理路由
+// 错误处理路由
 Route::fallback(function (Request $request, $status) {
     $map = [
         404 => [
-            'title'   => "Page Not Found",
-            'content' => "It's looking like you may have taken a wrong turn. Don't worry... it happens to the best of us. You might want to check your internet connection.",
+            'page_title' => "Page Not Found",
+            'title'      => "Opps!!!",
+            'content'    => "This page you are looking for could not be found.",
         ],
         405 => [
-            'title'   => "Method Not Allowed",
-            'content' => "The requested HTTP method is not allowed for this endpoint.",
+            'page_title' => "Method Not Allowed",
+            'title'      => "Opps!!!",
+            'content'    => "The requested HTTP method is not allowed for this endpoint.",
         ],
     ];
 
@@ -42,5 +44,5 @@ Route::fallback(function (Request $request, $status) {
         'request_url' => $request->uri(),
         'timestamp'   => time()
     ];
-    return $request->expectsJson() ? json($responseData)->withStatus($status) : view('404', $responseData, 'public')->withStatus($status);
+    return $request->expectsJson() ? json($responseData)->withStatus($status) : view('error', $responseData, 'public')->withStatus($status);
 });
