@@ -52,9 +52,65 @@
                     </div>
                 </div>
             </div>
+            <div class="btn-group position-absolute" style="bottom: 14px; left: 10px;">
+                <button type="button" class="btn border-0 dropdown-toggle d-flex align-items-center"
+                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10" fill="currentColor" opacity="0.5"/>
+                        <path fill="currentColor"
+                              d="M8.575 9.447C8.388 7.363 6.781 5.421 6 4.711l-.43-.37A9.96 9.96 0 0 1 12 2c2.214 0 4.26.72 5.916 1.936c.234.711-.212 2.196-.68 2.906c-.17.257-.554.577-.976.88c-.95.683-2.15 1.02-2.76 2.278a1.42 1.42 0 0 0-.083 1.016c.06.22.1.459.1.692c.002.755-.762 1.3-1.517 1.292c-1.964-.021-3.25-1.604-3.425-3.553m4.862 8.829c.988-1.862 4.281-1.862 4.281-1.862c3.432-.036 3.896-2.12 4.206-3.173a10.006 10.006 0 0 1-8.535 8.664c-.323-.68-.705-2.21.048-3.629"/>
+                    </svg>
+                    <span class="text-dark ms-1" id="currentLang">English</span>
+                </button>
+                <ul class="dropdown-menu animated">
+                    <li><a class="dropdown-item active" href="javascript:void(0)">English</a></li>
+                    <li><a class="dropdown-item" href="javascript:void(0)">Japanese</a></li>
+                    <li><a class="dropdown-item" href="javascript:void(0)">Chinese</a></li>
+                </ul>
+            </div>
         </div>
     </div>
 {% endblock %}
 
 {% block script %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const dropdownItems = document.querySelectorAll('.dropdown-item');
+            const currentLang = document.getElementById('currentLang');
+
+            dropdownItems.forEach(item => {
+                item.addEventListener('click', async function () {
+                    const lang = this.getAttribute('data-lang');
+                    try {
+                        const res = await fetch('/setLang', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({lang})
+                        });
+                        const data = await res.json();
+                        if (data.code === 0) {
+                            // 清除旧状态
+                            dropdownItems.forEach(i => {
+                                i.classList.remove('active');
+                                const check = i.querySelector('.checkmark');
+                                if (check) check.remove();
+                            });
+                            // 设置当前项
+                            this.classList.add('active');
+                            this.insertAdjacentHTML('beforeend', ' <span class="checkmark">✔</span>');
+                            // 更新显示文字
+                            currentLang.textContent = this.textContent.replace('✔', '').trim();
+                            console.log('语言已切换为：', lang);
+                        } else {
+                            alert('切换失败：' + data.msg);
+                        }
+                    } catch (e) {
+                        alert('请求失败');
+                    }
+                });
+            });
+        });
+    </script>
 {% endblock %}

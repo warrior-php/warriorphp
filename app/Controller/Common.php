@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use extend\Attribute\Route;
+
 class Common
 {
     /**
@@ -12,7 +14,7 @@ class Common
      *
      * @var string[]
      */
-    protected array $noNeedLogin = ['register', 'login'];
+    protected array $noNeedLogin = ['register', 'login', 'setLang'];
 
     /**
      * 无需鉴权的操作列表
@@ -26,4 +28,14 @@ class Common
      * @var string[]
      */
     protected array $noNeedAuth = [];
+
+    /**
+     * 设置语言
+     */
+    #[Route(path: "/setLang")]
+    public function setLang()
+    {
+        dump(111);
+        return 111;
+    }
 }
