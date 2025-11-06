@@ -22,7 +22,7 @@ class Request extends \Webman\Http\Request
 {
 
     /**
-     * @var array|mixed
+     * @var array
      */
-    public mixed $view_vars;
+    public array $view_vars = [];
 }

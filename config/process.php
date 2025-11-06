@@ -38,25 +38,24 @@ return [
     ],
     // File update detection and automatic reload
     'Monitor' => [
-        'handler'     => support\Monitor::class,
-        'reloadable'  => false,
+        'handler'     => support\Monitor::class,                // 热重载进程类
+        'reloadable'  => false,                         // 是否允许子进程自动重载
         'constructor' => [
-            // Monitor these directories
             'monitorDir'        => array_merge([
-                app_path(),
-                config_path(),
-                base_path() . '/process',
-                base_path() . '/support',
-                base_path() . '/resource',
-                base_path() . '/.env',
-            ], glob(base_path() . '/plugin/*/app'), glob(base_path() . '/plugin/*/config'), glob(base_path() . '/plugin/*/api')),
-            // Files with these suffixes will be monitored
-            'monitorExtensions' => [
-                'php', 'html', 'htm', 'env'
+                app_path(),                                // app目录
+                config_path(),                             // 配置目录
+                base_path() . '/process',                  // 自定义进程
+                base_path() . '/support',                  // 框架支持类
+                base_path() . '/resource',                // 静态资源
+                base_path() . '/.env',                     // 环境变量
             ],
+                glob(base_path() . '/plugin/*/app'),
+                glob(base_path() . '/plugin/*/config'),
+                glob(base_path() . '/plugin/*/api')),
+            'monitorExtensions' => ['php', 'html', 'htm', 'env', 'twig'], // 监听的文件扩展名
             'options'           => [
-                'enable_file_monitor'   => !in_array('-d', $argv) && DIRECTORY_SEPARATOR === '/',
-                'enable_memory_monitor' => DIRECTORY_SEPARATOR === '/',
+                'enable_file_monitor'   => !in_array('-d', $argv) && DIRECTORY_SEPARATOR === '/',   // 启用文件变更监听（Linux/macOS）
+                'enable_memory_monitor' => DIRECTORY_SEPARATOR === '/',                                     // 启用内存监控（Linux/macOS）
             ]
         ]
     ]

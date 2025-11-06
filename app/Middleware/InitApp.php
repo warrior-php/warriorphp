@@ -4,6 +4,7 @@ namespace App\Middleware;
 
 use App\Exception\BusinessException;
 use Exception;
+use support\View;
 use Webman\Http\Request;
 use Webman\Http\Response;
 use Webman\MiddlewareInterface;
@@ -44,6 +45,11 @@ class InitApp implements MiddlewareInterface
         if ($isInstalled && $isInstallController) {
             throw new BusinessException(message: trans("The system has been installed. To reinstall, delete the resource/install.lock file."));
         }
+
+        // 共享全局视图变量
+        View::assign([
+            'lang' => session('lang'),
+        ]);
 
         return $handler($request);
     }

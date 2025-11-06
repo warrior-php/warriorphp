@@ -16,6 +16,7 @@ class TwigExtension extends AbstractExtension
     {
         return [
             new TwigFunction('__ASSETS__', [$this, 'getAssetsPath']),
+            new TwigFunction('url', [$this, 'generateUrl']),
             new TwigFunction('trans', [$this, 'generateTrans'])
         ];
     }
@@ -43,5 +44,18 @@ class TwigExtension extends AbstractExtension
     public function generateTrans(string $key): string
     {
         return trans($key);
+    }
+
+    /**
+     * URL
+     *
+     * @param string $path   路径，例如 'admin/index/index'
+     * @param array  $params 参数，例如 ['id' => 1]
+     *
+     * @return string
+     */
+    public function generateUrl(string $path, array $params = []): string
+    {
+        return url($path, $params);
     }
 }

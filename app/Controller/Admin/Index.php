@@ -23,6 +23,6 @@ class Index extends Common
     #[Route(path: "/admin/login")]
     public function login(): Response
     {
-        return view('index');
+        return view('admin/login');
     }
 }
