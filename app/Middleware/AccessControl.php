@@ -28,6 +28,7 @@ class AccessControl implements MiddlewareInterface
 
         $code = 0;
         $msg = '';
+
         if (!$this->authServices::canAccess($controller, $action, $code, $msg)) {
             if ($request->expectsJson()) {
                 $response = json(['code' => $code, 'msg' => $msg, 'data' => []]);

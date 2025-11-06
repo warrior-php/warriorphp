@@ -23,6 +23,7 @@ class RouteService
         // TODO 这里需要处理多应用的路由配置
         // 扫描 app/Controller
         $appControllerDir = base_path('app/Controller');
+
         if (is_dir($appControllerDir)) {
             self::scanAndRegisterRecursive($appControllerDir, 'App\Controller');
         }

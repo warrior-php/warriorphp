@@ -19,9 +19,9 @@ use Support\Request;
 use Webman\Route;
 
 //// 禁用默认路由
-//Route::disableDefaultRoute();
+Route::disableDefaultRoute();
 //// 注册应用路由
-//RouteService::registerRoutes();
+RouteService::registerRoutes();
 
 // 404处理路由
 Route::fallback(function (Request $request, $status) {
