@@ -63,9 +63,9 @@
                     <span class="text-dark ms-1" id="currentLang">English</span>
                 </button>
                 <ul class="dropdown-menu animated">
-                    <li><a class="dropdown-item active" href="javascript:void(0)">English</a></li>
-                    <li><a class="dropdown-item" href="javascript:void(0)">Japanese</a></li>
-                    <li><a class="dropdown-item" href="javascript:void(0)">Chinese</a></li>
+                    <li><a class="dropdown-item" data-lang="en" href="javascript:void(0)">English</a></li>
+                    <li><a class="dropdown-item" data-lang="ja" href="javascript:void(0)">Japanese</a></li>
+                    <li><a class="dropdown-item" data-lang="zh_CN" href="javascript:void(0)">Chinese</a></li>
                 </ul>
             </div>
         </div>
@@ -81,33 +81,29 @@
             dropdownItems.forEach(item => {
                 item.addEventListener('click', async function () {
                     const lang = this.getAttribute('data-lang');
-                    try {
-                        const res = await fetch('/setLang', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({lang})
+                    const res = await fetch('/setLang', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({lang})
+                    });
+                    const data = await res.json();
+                    if (data.code === 200) {
+                        // 清除旧状态
+                        dropdownItems.forEach(i => {
+                            i.classList.remove('active');
+                            const check = i.querySelector('.checkmark');
+                            if (check) check.remove();
                         });
-                        const data = await res.json();
-                        if (data.code === 200) {
-                            // 清除旧状态
-                            dropdownItems.forEach(i => {
-                                i.classList.remove('active');
-                                const check = i.querySelector('.checkmark');
-                                if (check) check.remove();
-                            });
-                            // 设置当前项
-                            this.classList.add('active');
-                            this.insertAdjacentHTML('beforeend', ' <span class="checkmark">✔</span>');
-                            // 更新显示文字
-                            currentLang.textContent = this.textContent.replace('✔', '').trim();
-                            console.log('语言已切换为：', lang);
-                        } else {
-                            alert('切换失败：' + data.msg);
-                        }
-                    } catch (e) {
-                        alert('请求失败');
+                        // 设置当前项
+                        this.classList.add('active');
+                        this.insertAdjacentHTML('beforeend', ' <span class="checkmark">✔</span>');
+                        // 更新显示文字
+                        currentLang.textContent = this.textContent.replace('✔', '').trim();
+                        console.log('语言已切换为：', lang);
+                    } else {
+                        alert('切换失败：' + data.msg);
                     }
                 });
             });

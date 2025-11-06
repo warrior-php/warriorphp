@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use Exception;
 use extend\Attribute\Route;
+use support\Request;
 use support\Response;
 
 class Common
@@ -30,14 +32,20 @@ class Common
      */
     protected array $noNeedAuth = ['logout'];
 
-
     /**
      * 设置语言
+     *
+     * @param Request $request
+     *
      * @return Response
+     * @throws Exception
      */
     #[Route(path: "/setLang", methods: ['POST'])]
-    public function setLang(): Response
+    public function setLang(Request $request): Response
     {
+        $postData = request()->post();
+        $lang = $postData['lang'] ?? null;
+        session()->set('lang', $lang);
         return result(200);
     }
 }
