@@ -93,7 +93,7 @@ class AuthService
     }
 
     /**
-     * （可选）刷新 Session 生命周期
+     * 刷新 Session 生命周期
      *
      * @param string $key
      *
