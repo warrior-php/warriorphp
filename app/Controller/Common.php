@@ -102,7 +102,7 @@ class Common
     {
         $builder = new PhraseBuilder(5, 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ');
         $captcha = new CaptchaBuilder(null, $builder);
-        $captcha->build(152, 37);
+        $captcha->build(142, 37);
         $request->session()->set($type, strtolower($captcha->getPhrase()));
         $img_content = $captcha->get();
         return response($img_content, 200, ['Content-Type' => 'image/jpeg']);

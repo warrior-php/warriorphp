@@ -32,8 +32,7 @@
                                             <div class="input-group">
                                                 <input id="exampleInputCaptcha" type="text" class="form-control" data-validation-required-message="{{ trans("admin.login.key11") }}"/>
                                                 <img style="border-radius: 0 7px 7px 0; border: var(--bs-border-width) solid #dfe5ef;" id="captcha"
-                                                     src="{{ url('captcha',{'type':'admin-login-captcha'}) }}"
-                                                     alt="{{ trans("admin.login.key10") }}"/>
+                                                     src="{{ url('captcha',{'type':'admin-login-captcha'}) }}" alt="{{ trans("admin.login.key10") }}"/>
                                             </div>
                                         </div>
                                     </div>
@@ -99,31 +98,76 @@
     </div>
 {% endblock %}
 
-{% block script %}
-    <script src="{{ __ASSETS__('js/extra-libs/jqbootstrapvalidation/validation.js') }}"></script>
-    <script src="{{ __ASSETS__('js/forms/custom-validation-init.js') }}"></script>
-    <script src="{{ __ASSETS__('js/request.js') }}"></script>
-    <script>
-        $('.dropdown-item').on('click', function () {
-            const lang = $(this).data('lang');
-            request.post('{{ url("setLang") }}', {
-                lang: lang
-            }).then(res => {
-                if (res.code === 200) {
-                    location.reload();
-                }
-            });
-        });
+{% block js %}
+    <script type="text/javascript">
+        Do('',() => {
 
-        // 点击验证码图片时刷新
-        $('#captcha').on('click', function () {
-            refreshCaptcha(this);
-        });
-
-        function refreshCaptcha(selector) {
-            const url = "{{ url('captcha',{'type':'admin-login-captcha'}) }}";
-            const $el = typeof selector === 'string' ? $(selector) : $(selector);
-            $el.attr('src', url + '?t=' + new Date().getTime());
-        }
+        })
     </script>
+{#    <script src="{{ __ASSETS__('js/extra-libs/jqbootstrapvalidation/validation.js') }}"></script>#}
+{#    <script src="{{ __ASSETS__('js/forms/custom-validation-init.js') }}"></script>#}
+{#    <script src="{{ __ASSETS__('js/request.js') }}"></script>#}
+{#    <script>#}
+{#        $('.dropdown-item').on('click', function () {#}
+{#            const lang = $(this).data('lang');#}
+{#            request.post('{{ url("setLang") }}', {#}
+{#                lang: lang#}
+{#            }).then(res => {#}
+{#                if (res.code === 200) {#}
+{#                    location.reload();#}
+{#                }#}
+{#            });#}
+{#        });#}
+
+{#        // 点击验证码图片时刷新#}
+{#        $('#captcha').on('click', function () {#}
+{#            refreshCaptcha(this);#}
+{#        });#}
+
+{#        function refreshCaptcha(selector) {#}
+{#            const url = "{{ url('captcha',{'type':'admin-login-captcha'}) }}";#}
+{#            const $el = typeof selector === 'string' ? $(selector) : $(selector);#}
+{#            $el.attr('src', url + '?t=' + new Date().getTime());#}
+{#        }#}
+
+{#        $('form').on('submit', function (e) {#}
+{#            e.preventDefault(); // 阻止默认提交#}
+
+{#            const username = $.trim($('input[name="username"]').val());#}
+{#            const password = $.trim($('input[name="password"]').val());#}
+{#            const captcha = $.trim($('#exampleInputCaptcha').val());#}
+
+{#            if (!username) {#}
+{#                return alert("{{ trans('admin.login.key8') }}");#}
+{#            }#}
+{#            if (!password) {#}
+{#                return alert("{{ trans('admin.login.key9') }}");#}
+{#            }#}
+{#            if (!captcha) {#}
+{#                return alert("{{ trans('admin.login.key11') }}");#}
+{#            }#}
+
+{#            // 提交请求#}
+{#            request.post('{{ url("admin.login") }}', {#}
+{#                username,#}
+{#                password,#}
+{#                captcha#}
+{#            }).then(res => {#}
+{#                if (res.code === 200) {#}
+{#                    // 登录成功#}
+{#                    alert(res.msg || '登录成功');#}
+{#                    // 跳转后台首页#}
+{#                    location.href = res.url || '{{ url("admin.index") }}';#}
+{#                } else {#}
+{#                    // 登录失败#}
+{#                    alert(res.msg || '登录失败');#}
+{#                    refreshCaptcha('#captcha');#}
+{#                }#}
+{#            }).catch(err => {#}
+{#                console.error(err);#}
+{#                alert('网络错误，请稍后再试');#}
+{#                refreshCaptcha('#captcha');#}
+{#            });#}
+{#        });#}
+{#    </script>#}
 {% endblock %}

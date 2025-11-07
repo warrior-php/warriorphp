@@ -10,7 +10,11 @@
     <!-- Core Css -->
     <link rel="stylesheet" href="{{ __ASSETS__('css/styles.css') }}"/>
     <title>{% block title %}{{ trans("Site title") }}{% endblock %}</title>
+    <meta name="description" content="description">
     <!-- Import Js Files -->
+    <script src="{{ __ASSETS__('js/do.js') }}"></script>
+    <script src="{{ __ASSETS__('js/package.js') }}"></script>
+
     <script src="{{ __ASSETS__('js/vendor.min.js') }}"></script>
     <script src="{{ __ASSETS__('libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ __ASSETS__('js/theme/theme.js') }}"></script>
@@ -40,6 +44,6 @@
 <div class="dark-transparent sidebartoggler"></div>
 <script src="{{ __ASSETS__('js/theme/app.init.js') }}"></script>
 <script src="{{ __ASSETS__('js/theme/app.min.js') }}"></script>
-{% block script %}{% endblock %}
+{% block js %}{% endblock %}
 </body>
 </html>
