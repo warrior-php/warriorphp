@@ -12,14 +12,18 @@
                         </div>
                         <div class="card mb-0">
                             <div class="card-body">
-                                <form action="{{ url('user.login') }}">
-                                    <div class="mb-3">
-                                        <label for="exampleInputEmail1" class="form-label">{{ trans("admin.login.key1") }}</label>
-                                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                <form action="{{ url('admin.login') }}" novalidate>
+                                    <div class="mb-3 form-group">
+                                        <label for="exampleInputUsername" class="form-label">{{ trans("admin.login.key1") }}</label>
+                                        <div class="controls">
+                                            <input id="exampleInputUsername" type="text" name="username" class="form-control" data-validation-required-message="{{ trans("admin.login.key8") }}"/>
+                                        </div>
                                     </div>
-                                    <div class="mb-4">
-                                        <label for="exampleInputPassword1" class="form-label">{{ trans("admin.login.key2") }}</label>
-                                        <input type="password" class="form-control" id="exampleInputPassword1">
+                                    <div class="mb-3 form-group">
+                                        <label for="exampleInputPassword" class="form-label">{{ trans("admin.login.key2") }}</label>
+                                        <div class="controls">
+                                            <input id="exampleInputPassword" type="password" name="password" class="form-control" data-validation-required-message="{{ trans("admin.login.key9") }}"/>
+                                        </div>
                                     </div>
                                     <div class="d-flex align-items-center justify-content-between mb-4">
                                         <div class="form-check">
@@ -84,26 +88,18 @@
 {% endblock %}
 
 {% block script %}
+    <script src="{{ __ASSETS__('js/extra-libs/jqbootstrapvalidation/validation.js') }}"></script>
+    <script src="{{ __ASSETS__('js/forms/custom-validation-init.js') }}"></script>
+    <script src="{{ __ASSETS__('js/request.js') }}"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const dropdownItems = document.querySelectorAll('.dropdown-item');
-            dropdownItems.forEach(item => {
-                item.addEventListener('click', async function () {
-                    const lang = this.getAttribute('data-lang');
-                    const res = await fetch('/setLang', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({lang})
-                    });
-                    const data = await res.json();
-                    if (data.code === 200) {
-                        console.log('语言已切换为：', lang);
-                        // 切换后刷新页面
-                        location.reload();
-                    }
-                });
+        $('.dropdown-item').on('click', function () {
+            const lang = $(this).data('lang');
+            request.post('{{ url("setLang") }}', {
+                lang: lang
+            }).then(res => {
+                if (res.code === 200) {
+                    location.reload();
+                }
             });
         });
     </script>

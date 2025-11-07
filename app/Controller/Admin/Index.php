@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Controller\Common;
 use extend\Attribute\Route;
+use support\Request;
 use support\Response;
 
 class Index extends Common
@@ -18,11 +19,17 @@ class Index extends Common
     }
 
     /**
+     * @param Request $request
+     *
      * @return Response
      */
     #[Route(path: "/admin/login", methods: ['GET', 'POST'])]
-    public function login(): Response
+    public function login(Request $request): Response
     {
+        if ($request->isAjax()) {
+            $data = request()->post();
+            $this->validateWith('Admin', $data, 'login');
+        }
         return view('admin/login');
     }
 }
