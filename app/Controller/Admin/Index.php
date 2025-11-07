@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Controller\Common;
 use App\Service\AuthService;
 use DI\Attribute\Inject;
+use Exception;
 use extend\Attribute\Route;
 use support\Request;
 use support\Response;
@@ -30,6 +31,7 @@ class Index extends Common
      * @param Request $request
      *
      * @return Response
+     * @throws Exception
      */
     #[Route(path: "/admin/login", methods: ['GET', 'POST'])]
     public function login(Request $request): Response

@@ -3,9 +3,12 @@
 namespace App\Service;
 
 use App\Exception\BusinessException;
+use App\Model\Admin;
 use Exception;
+use extend\Utils\DataCipher;
 use ReflectionClass;
 use ReflectionException;
+use support\Log;
 use support\Redis;
 
 class AuthService
@@ -43,6 +46,7 @@ class AuthService
      * @param array $params
      *
      * @return void
+     * @throws Exception
      */
     public function login(array $params): void
     {
@@ -52,6 +56,39 @@ class AuthService
         if ((int)Redis::get($attemptsKey) >= $this->maxAttempts) {
             throw new BusinessException(trans('admin.account.login.key010'));
         }
+        // 图形验证码校验
+        $captcha = mb_strtolower($params['captcha'] ?? '');
+        $sessionCaptcha = mb_strtolower(session('admin-login-captcha') ?? '');
+        session()->delete('login-captcha');
+        if ($captcha !== $sessionCaptcha) {
+            throw new BusinessException(trans('admin.account.login.key011')); // 验证码错误
+        }
+        $admin = Admin::where('email', $params['email'])->first();
+        // 密码校验失败：记录尝试次数
+        if (!$admin || !password_verify($params['password'], $admin->password)) {
+            $attempts = Redis::incr($attemptsKey);
+            Redis::expire($attemptsKey, $this->blockTime);
+            Log::warning(
+                trans('admin.account.login.key012'),
+                ['email' => $params['email'], 'ip' => $ip, 'attempts' => $attempts]
+            );
+            throw new BusinessException(trans('admin.account.login.key013')); // 账号或密码错误
+        }
+        // 更新登录记录
+        $admin->login_at = date('Y-m-d H:i:s');
+        $admin->login_ip = $ip;
+        $admin->save();
+        // 仅保存必要字段到 session
+        $sessionData = [
+            'id'       => $admin->id,
+            'email'    => $admin->email,
+            'name'     => $admin->name,
+            'login_at' => $admin->login_at,
+        ];
+        $enAdmin = DataCipher::encryptDecrypt(json_encode($sessionData), $this->sessionKey);
+        session()->set('admin', $enAdmin);
+        // 登录成功：重置失败计数
+        Redis::del($attemptsKey);
     }
 
     /**
