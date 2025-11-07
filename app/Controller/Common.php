@@ -2,13 +2,13 @@
 
 namespace App\Controller;
 
-use App\Request\Validator;
 use App\Validator\BaseValidator;
 use Exception;
 use extend\Attribute\Route;
 use support\exception\BusinessException;
 use support\Request;
 use support\Response;
+use Webman\Captcha\CaptchaBuilder;
 
 class Common
 {
@@ -20,7 +20,7 @@ class Common
      *
      * @var string[]
      */
-    protected array $noNeedLogin = ['register', 'login', 'setLang'];
+    protected array $noNeedLogin = ['register', 'login', 'setLang', 'captcha'];
 
     /**
      * 无需鉴权的操作列表
@@ -87,6 +87,27 @@ class Common
         }
         session()->set('lang', $check['lang']);
         return result(200, 'Language set successfully', ['lang' => $check['lang']]);
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     * @throws Exception
+     */
+    #[Route(path: "/captcha", methods: ['GET'])]
+    public function captcha(Request $request): Response
+    {
+        // 初始化验证码类
+        $builder = new CaptchaBuilder;
+        // 生成验证码
+        $builder->build();
+        // 将验证码的值存储到session中
+        $request->session()->set('admin-login-captcha', strtolower($builder->getPhrase()));
+        // 获得验证码图片二进制数据
+        $img_content = $builder->get();
+        // 输出验证码二进制数据
+        return response($img_content, 200, ['Content-Type' => 'image/jpeg']);
     }
 
 }

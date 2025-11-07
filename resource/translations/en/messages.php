@@ -19,7 +19,7 @@ return [
             'key7'  => 'Sign In',
             'key8'  => 'Username required',
             'key9'  => 'Login password is required',
-            'key10' => 'Image CAPTCHA',
+            'key10' => 'Verification Code',
             'key11' => 'Image verification code is required.',
         ]
     ],
