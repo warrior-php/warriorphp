@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'language'     => '中文简体',
     'unknown'      => '未知错误',
     'success'      => '成功',
     'redirect'     => '重定向',

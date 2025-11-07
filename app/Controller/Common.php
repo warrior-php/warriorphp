@@ -43,9 +43,14 @@ class Common
     #[Route(path: "/setLang", methods: ['POST'])]
     public function setLang(Request $request): Response
     {
-        $postData = request()->post();
-        $lang = $postData['lang'] ?? null;
-        session()->set('lang', $lang);
-        return result(200);
+        $postData = $request->post();
+        $lang = $postData['lang'] ?? '';
+        $check = normalizeLang($lang);
+        if (!$check['supported']) {
+            return result(400, 'Unsupported language');
+        }
+        session()->set('lang', $check['lang']);
+        return result(200, 'Language set successfully', ['lang' => $check['lang']]);
     }
+
 }

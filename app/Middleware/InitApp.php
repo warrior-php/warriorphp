@@ -30,7 +30,7 @@ class InitApp implements MiddlewareInterface
     public function process(Request $request, callable $handler): Response
     {
         $this->initPathConst();
-        $this->initLanguage();
+        $this->initLanguage($request);
         // 检查是否正常安装
         $isInstalled = file_exists(base_path('/resource/install.lock'));
         $controller = request()->controller ?? '';
@@ -43,23 +43,27 @@ class InitApp implements MiddlewareInterface
         if ($isInstalled && $isInstallController) {
             throw new BusinessException(message: trans("The system has been installed. To reinstall, delete the resource/install.lock file."));
         }
+
         // 共享全局视图变量
         View::assign([
-            'lang' => session('lang'),
+            'languages' => getAvailableTranslations('resource/translations'),
         ]);
+
         return $handler($request);
     }
 
     /**
      * 初始化语言
      *
+     * @param $request
+     *
      * @return void
      * @throws Exception
      */
-    private function initLanguage(): void
+    private function initLanguage($request): void
     {
         // 设语言
-        $language = session('lang') ?: setupLocale();
+        $language = session('lang') ?: setupLocale($request);
         locale(str_replace('-', '_', $language));
     }
 
