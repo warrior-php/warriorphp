@@ -9,6 +9,7 @@ use support\exception\BusinessException;
 use support\Request;
 use support\Response;
 use Webman\Captcha\CaptchaBuilder;
+use Webman\Captcha\PhraseBuilder;
 
 class Common
 {
@@ -91,22 +92,19 @@ class Common
 
     /**
      * @param Request $request
+     * @param string  $type
      *
      * @return Response
      * @throws Exception
      */
     #[Route(path: "/captcha", methods: ['GET'])]
-    public function captcha(Request $request): Response
+    public function captcha(Request $request, string $type = 'captcha'): Response
     {
-        // 初始化验证码类
-        $builder = new CaptchaBuilder;
-        // 生成验证码
-        $builder->build();
-        // 将验证码的值存储到session中
-        $request->session()->set('admin-login-captcha', strtolower($builder->getPhrase()));
-        // 获得验证码图片二进制数据
-        $img_content = $builder->get();
-        // 输出验证码二进制数据
+        $builder = new PhraseBuilder(5, 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ');
+        $captcha = new CaptchaBuilder(null, $builder);
+        $captcha->build(152, 37);
+        $request->session()->set($type, strtolower($captcha->getPhrase()));
+        $img_content = $captcha->get();
         return response($img_content, 200, ['Content-Type' => 'image/jpeg']);
     }
 

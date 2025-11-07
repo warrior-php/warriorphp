@@ -27,8 +27,14 @@
                                     </div>
                                     <div class="mb-3 form-group">
                                         <label for="exampleInputCaptcha" class="form-label">{{ trans("admin.login.key10") }}</label>
+
                                         <div class="controls">
-                                            <input id="exampleInputCaptcha" type="text" name="captcha" class="form-control" data-validation-required-message="{{ trans("admin.login.key11") }}"/>
+                                            <div class="input-group">
+                                                <input id="exampleInputCaptcha" type="text" class="form-control" data-validation-required-message="{{ trans("admin.login.key11") }}"/>
+                                                <img style="border-radius: 0 7px 7px 0; border: var(--bs-border-width) solid #dfe5ef;" id="captcha"
+                                                     src="{{ url('captcha',{'type':'admin-login-captcha'}) }}"
+                                                     alt="{{ trans("admin.login.key10") }}"/>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="d-flex align-items-center justify-content-between mb-4">
@@ -108,5 +114,16 @@
                 }
             });
         });
+
+        // 点击验证码图片时刷新
+        $('#captcha').on('click', function () {
+            refreshCaptcha(this);
+        });
+
+        function refreshCaptcha(selector) {
+            const url = "{{ url('captcha',{'type':'admin-login-captcha'}) }}";
+            const $el = typeof selector === 'string' ? $(selector) : $(selector);
+            $el.attr('src', url + '?t=' + new Date().getTime());
+        }
     </script>
 {% endblock %}

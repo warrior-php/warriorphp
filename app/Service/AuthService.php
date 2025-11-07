@@ -2,12 +2,58 @@
 
 namespace App\Service;
 
+use App\Exception\BusinessException;
 use Exception;
 use ReflectionClass;
 use ReflectionException;
+use support\Redis;
 
 class AuthService
 {
+    /**
+     * @var string 会话加密密钥
+     */
+    public string $sessionKey;
+
+    /**
+     * 最大登录尝试次数
+     *
+     * @var int
+     */
+    private int $maxAttempts = 3;
+
+    /**
+     * 登录锁定时间（秒）
+     *
+     * @var int
+     */
+    private int $blockTime = 1800;
+
+    /**
+     * 构造函数
+     */
+    public function __construct()
+    {
+        $this->sessionKey = uuid(5, false, request()->host() . 'admin_session_key');
+    }
+
+    /**
+     * 管理员登录
+     *
+     * @param array $params
+     *
+     * @return void
+     */
+    public function login(array $params): void
+    {
+        $ip = request()->getRealIp();
+        $attemptsKey = 'admin_login:attempts:' . $ip;
+        // 登录失败次数检查
+        if ((int)Redis::get($attemptsKey) >= $this->maxAttempts) {
+            throw new BusinessException(trans('admin.account.login.key010'));
+        }
+    }
+
     /**
      * @param string $controller
      * @param string $action

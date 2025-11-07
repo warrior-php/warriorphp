@@ -3,12 +3,20 @@
 namespace App\Controller\Admin;
 
 use App\Controller\Common;
+use App\Service\AuthService;
+use DI\Attribute\Inject;
 use extend\Attribute\Route;
 use support\Request;
 use support\Response;
 
 class Index extends Common
 {
+    /**
+     * @var AuthService
+     */
+    #[Inject]
+    protected AuthService $authService;
+
     /**
      * @return Response
      */
@@ -27,8 +35,9 @@ class Index extends Common
     public function login(Request $request): Response
     {
         if ($request->isAjax()) {
-            $data = request()->post();
-            $this->validateWith('Admin', $data, 'login');
+            $params = request()->post();
+            $this->validateWith('Admin', $params, 'login');
+            $this->authService->login($params);
         }
         return view('admin/login');
     }

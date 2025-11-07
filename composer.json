@@ -36,7 +36,10 @@
     "symfony/translation": "^7.3",
     "php-di/php-di": "^7.0",
     "respect/validation": "^2.4",
-    "webman/captcha": "^1.0"
+    "webman/captcha": "^1.0",
+    "ramsey/uuid": "^4.9",
+    "godruoyi/php-snowflake": "^3.2",
+    "webman/redis": "^2.1"
   },
   "suggest": {
     "ext-event": "For better performance. "
