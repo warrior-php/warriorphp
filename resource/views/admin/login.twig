@@ -12,7 +12,7 @@
                         </div>
                         <div class="card mb-0">
                             <div class="card-body">
-                                <form action="{{ url('admin.login') }}" novalidate>
+                                <form id="form" action="{{ url('admin.login') }}" novalidate>
                                     <div class="mb-3 form-group">
                                         <label for="exampleInputUsername" class="form-label">{{ trans("admin.login.key1") }}</label>
                                         <div class="controls">
@@ -101,23 +101,8 @@
 {% block js %}
     <script type="text/javascript">
         Do('base', 'form', () => {
-            $('form').on('submit', function (e) {
-                e.preventDefault(); // 阻止默认提交
-
-                const username = $.trim($('input[name="username"]').val());
-                const password = $.trim($('input[name="password"]').val());
-                const captcha = $.trim($('#exampleInputCaptcha').val());
-
-                if (!username) {
-                    return alert("{{ trans('admin.login.key8') }}");
-                }
-                if (!password) {
-                    return alert("{{ trans('admin.login.key9') }}");
-                }
-                if (!captcha) {
-                    return alert("{{ trans('admin.login.key11') }}");
-                }
-
+            $('#form').isForm((rel) => {
+                // 200 !== rel.code && captcha("#captcha")
             });
         })
     </script>

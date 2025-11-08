@@ -7,7 +7,7 @@ fly.config.headers = {
     "X-SOFT-NAME": "SAPI++ SaaS Framework",
     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 }
-fly.config.mode    = "no-cors"
+fly.config.mode = "no-cors"
 fly.config.baseURL = ""
 //添加请求拦截器
 fly.interceptors.request.use((request) => {
@@ -27,7 +27,7 @@ fly.interceptors.response.use(
                 }
                 break;
             case 202: //Debug
-                parent.layer.toast(rel.message,{skin:'success'});
+                parent.layer.toast(rel.message, {skin: 'success'});
             case 204:
                 console.log(rel.message)
                 break;
@@ -39,35 +39,38 @@ fly.interceptors.response.use(
                 }
                 break;
             default:
-                parent.layer.toast(rel.message,{skin:'error'});
+                parent.layer.toast(rel.message, {skin: 'error'});
                 break;
         }
         return response;
-    },(err) => {
+    }, (err) => {
         console.log(err)
     }
 )
 var http = new Fly;
-http.get = (url,params,callback) => {
-    var param = {};"function"!=typeof params&&(param = params);
-    return fly.get(url,param).then((response) => {
-        "function" == typeof params?params(response.data):"function"==typeof callback&&callback(response.data);
+http.get = (url, params, callback) => {
+    var param = {};
+    "function" != typeof params && (param = params);
+    return fly.get(url, param).then((response) => {
+        "function" == typeof params ? params(response.data) : "function" == typeof callback && callback(response.data);
     }).catch((error) => {
         console.log(error)
     })
 }
-http.post = (url,params,callback) => {
-     var param = {};"function"!=typeof params&&(param = params);
-     return fly.post(url,param).then((response) => {
-        "function"== typeof params?params(response.data):"function"==typeof callback&&callback(response.data);
+http.post = (url, params, callback) => {
+    var param = {};
+    "function" != typeof params && (param = params);
+    return fly.post(url, param).then((response) => {
+        "function" == typeof params ? params(response.data) : "function" == typeof callback && callback(response.data);
     }).catch((error) => {
         console.log(error)
     })
 }
-http.put = (url,params,callback) => {
-    var param = {};"function"!=typeof params&&(param = params);
-    return fly.put(url,param).then((response) => {
-        "function"==typeof params?params(response.data):"function"==typeof callback&&callback(response.data);
+http.put = (url, params, callback) => {
+    var param = {};
+    "function" != typeof params && (param = params);
+    return fly.put(url, param).then((response) => {
+        "function" == typeof params ? params(response.data) : "function" == typeof callback && callback(response.data);
     }).catch((error) => {
         console.log(error)
     })

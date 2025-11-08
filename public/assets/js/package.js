@@ -11,12 +11,14 @@ Do.add('theme', {path: currentPath + 'theme/theme.js', type: 'js'});
 Do.add('app.init', {path: currentPath + 'theme/app.init.js', type: 'js'});
 Do.add('app.min', {path: currentPath + 'theme/app.min.js', type: 'js', requires: ['theme', 'app.init']});
 
+// 基础
+Do.add('base', {path: currentPath + 'common.js', type: 'js', requires: ['bootstrap', 'app.min', 'http']});
+
 // 请求
 Do.add('request', {path: currentPath + 'http/http.min.js', type: 'js',});
 Do.add('http', {path: currentPath + 'http/request.js', type: 'js', requires: ['request']});
 // 表单
 Do.add('validation', {path: currentPath + 'extra-libs/jqbootstrapvalidation/validation.js', type: 'js'});
-Do.add('custom-validation-init', {path: currentPath + 'forms/custom-validation-init.js', type: 'js'});
-Do.add('form', {path: currentPath + 'forms/form.js', type: 'js', requires: ['validation', 'custom-validation-init']});
-
-Do.add('base', {path: currentPath + 'common.js', type: 'js', requires: ['bootstrap', 'app.min', 'http']});
+Do.add('custom-validation-init', {path: currentPath + 'forms/custom-validation-init.js', type: 'js', requires: ['validation']});
+Do.add('jquery.form', {path: currentPath + 'forms/jquery.form.js', type: 'js'});
+Do.add('form', {path: currentPath + 'forms/form.js', type: 'js', requires: ['validation', 'custom-validation-init', 'jquery.form']});
