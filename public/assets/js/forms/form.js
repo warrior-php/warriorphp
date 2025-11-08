@@ -43,6 +43,7 @@
                             case 302:
                                 break;
                             default:
+                                toastr.error(rel.msg);
                                 break;
                         }
                         // 调用回调

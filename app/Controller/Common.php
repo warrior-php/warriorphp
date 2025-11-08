@@ -100,7 +100,7 @@ class Common
     #[Route(path: "/captcha", methods: ['GET'])]
     public function captcha(Request $request, string $type = 'captcha'): Response
     {
-        $builder = new PhraseBuilder(5, 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ');
+        $builder = new PhraseBuilder(4, 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ');
         $captcha = new CaptchaBuilder(null, $builder);
         $captcha->build(142, 37);
         $request->session()->set($type, strtolower($captcha->getPhrase()));

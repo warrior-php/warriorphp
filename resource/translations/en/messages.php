@@ -1,14 +1,14 @@
 <?php
 
 return [
-    'language'     => 'English',
-    'unknown'      => 'Unknown error',
-    'success'      => 'Success',
-    'redirect'     => 'Redirect',
-    'unauthorized' => 'Unauthorized',
-    'forbidden'    => 'Forbidden',
+    'language'           => 'English',
+    'unknown'            => 'Unknown error',
+    'success'            => 'Success',
+    'redirect'           => 'Redirect',
+    'unauthorized'       => 'Unauthorized',
+    'forbidden'          => 'Forbidden',
     // 后台相关
-    'admin'        => [
+    'admin'              => [
         'login' => [
             'key1'  => 'Username',
             'key2'  => 'Password',
@@ -23,4 +23,9 @@ return [
             'key11' => 'Image verification code is required.',
         ]
     ],
+    // 错误提示
+    'business_exception' => [
+        'key1' => 'Too many login attempts failed. Please try again later.',
+        'key2' => 'Image verification code error',
+    ]
 ];

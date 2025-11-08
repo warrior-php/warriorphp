@@ -1,23 +1,12 @@
 <?php
-/**
- * This file is part of webman.
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the MIT-LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @author    walkor<walkor@workerman.net>
- * @copyright walkor<walkor@workerman.net>
- * @link      http://www.workerman.net/
- * @license   http://www.opensource.org/licenses/mit-license.php MIT License
- */
+declare(strict_types=1);
 
 return [
     'default' => [
-        'password' => '',
-        'host'     => '127.0.0.1',
-        'port'     => 6379,
-        'database' => 0,
+        'host'     => getenv('REDIS_HOST'),
+        'password' => getenv('REDIS_PASSWORD'),
+        'port'     => getenv('REDIS_PORT'),
+        'database' => getenv('REDIS_DATABASE'),
         'pool'     => [
             'max_connections'    => 5,
             'min_connections'    => 1,

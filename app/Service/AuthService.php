@@ -53,15 +53,15 @@ class AuthService
         $ip = request()->getRealIp();
         $attemptsKey = 'admin_login:attempts:' . $ip;
         // 登录失败次数检查
-        if ((int)Redis::get($attemptsKey) >= $this->maxAttempts) {
-            throw new BusinessException(trans('admin.account.login.key010'));
+        if (Redis::get($attemptsKey) >= $this->maxAttempts) {
+            throw new BusinessException(trans('business_exception.key1'));
         }
         // 图形验证码校验
         $captcha = mb_strtolower($params['captcha'] ?? '');
         $sessionCaptcha = mb_strtolower(session('admin-login-captcha') ?? '');
-        session()->delete('login-captcha');
+        session()->delete('admin-login-captcha');
         if ($captcha !== $sessionCaptcha) {
-            throw new BusinessException(trans('admin.account.login.key011')); // 验证码错误
+            throw new BusinessException(trans('business_exception.key2')); // 验证码错误
         }
         $admin = Admin::where('email', $params['email'])->first();
         // 密码校验失败：记录尝试次数

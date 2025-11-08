@@ -1,14 +1,14 @@
 <?php
 
 return [
-    'language'     => '中文简体',
-    'unknown'      => '未知错误',
-    'success'      => '成功',
-    'redirect'     => '重定向',
-    'unauthorized' => '未经授权',
-    'forbidden'    => '禁止访问',
+    'language'           => '中文简体',
+    'unknown'            => '未知错误',
+    'success'            => '成功',
+    'redirect'           => '重定向',
+    'unauthorized'       => '未经授权',
+    'forbidden'          => '禁止访问',
     // 后台相关
-    'admin'        => [
+    'admin'              => [
         'login' => [
             'key1'  => '用户名',
             'key2'  => '密码',
@@ -23,4 +23,9 @@ return [
             'key11' => '图形验证码必填',
         ]
     ],
+    // 错误提示
+    'business_exception' => [
+        'key1' => '登录失败次数过多，请稍后再试',
+        'key2' => '图形验证码错误',
+    ]
 ];
