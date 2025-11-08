@@ -16,7 +16,8 @@
                                     <div class="mb-3 form-group">
                                         <label for="exampleInputUsername" class="form-label">{{ trans("admin.login.key1") }}</label>
                                         <div class="controls">
-                                            <input id="exampleInputUsername" type="text" name="username" class="form-control" data-validation-required-message="{{ trans("admin.login.key8") }}"/>
+                                            <input id="exampleInputUsername" type="text" name="username" class="form-control" data-validation-required-message="{{ trans("admin.login.key8") }}"
+                                                   autocomplete="off" spellcheck="false"/>
                                         </div>
                                     </div>
                                     <div class="mb-3 form-group">
@@ -27,7 +28,6 @@
                                     </div>
                                     <div class="mb-3 form-group">
                                         <label for="exampleInputCaptcha" class="form-label">{{ trans("admin.login.key10") }}</label>
-
                                         <div class="controls">
                                             <div class="input-group">
                                                 <input id="exampleInputCaptcha" type="text" class="form-control" data-validation-required-message="{{ trans("admin.login.key11") }}"/>
@@ -79,18 +79,16 @@
                 </button>
                 <ul class="dropdown-menu animated">
                     {% for lang in languages %}
-                        <li>
-                            <button class="dropdown-item d-flex justify-content-between align-items-center" data-lang="{{ lang.locale }}">
-                                <span>{{ lang.name }}</span>
-                                {% if lang.current %}
-                                    <span class="checkmark">
+                        <button class="dropdown-item d-flex justify-content-between align-items-center" data-lang="{{ lang.locale }}" {% if lang.current %} disabled {% endif %}>
+                            <span>{{ lang.name }}</span>
+                            {% if lang.current %}
+                                <span class="checkmark">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                             <path fill="none" stroke="#3370ff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m7 12.9l3.143 3.6L18 7.5"/>
                                         </svg>
                                     </span>
-                                {% endif %}
-                            </button>
-                        </li>
+                            {% endif %}
+                        </button>
                     {% endfor %}
                 </ul>
             </div>
@@ -104,16 +102,23 @@
             $('#form').isForm((rel) => {
                 200 !== rel.code && refreshCaptcha("#captcha")
             });
-            $('#captcha').click(function () {
+            $('#captcha').on('click', function () {
                 refreshCaptcha(this);
             });
-            $('.dropdown-item').actUrl({is_delete: true});
+            $('.dropdown-item').on('click', function () {
+                const lang = $(this).data('lang');
+                http.post('{{ url("setLang") }}', {lang}, (rel) => {
+                    if (rel.code === 200) {
+                        location.reload();
+                    }
+                })
+            });
 
             function refreshCaptcha(selector) {
                 const url = "{{ url('captcha',{'type':'admin-login-captcha'}) }}";
                 const $el = typeof selector === 'string' ? $(selector) : $(selector);
                 $el.attr('src', url + '?t=' + new Date().getTime());
             }
-        })
+        });
     </script>
 {% endblock %}
