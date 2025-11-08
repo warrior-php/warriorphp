@@ -4,10 +4,10 @@
     // 如果文档还没加载完成，等它加载完
     if (document.readyState === 'loading') {
         document.addEventListener("DOMContentLoaded", () => {
-            setTimeout(initTheme, 500);
+            setTimeout(initTheme, 300);
         });
     } else {
-        setTimeout(initTheme, 500);
+        setTimeout(initTheme, 300);
     }
 
     function initTheme() {
