@@ -107,6 +107,7 @@
             $('#captcha').click(function () {
                 refreshCaptcha(this);
             });
+            $('.dropdown-item').actUrl({is_delete: true});
 
             function refreshCaptcha(selector) {
                 const url = "{{ url('captcha',{'type':'admin-login-captcha'}) }}";
