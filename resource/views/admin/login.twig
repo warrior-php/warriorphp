@@ -101,7 +101,6 @@
         Do('base', 'form', () => {
             $('#form').isForm((rel) => {
                 if (rel.code !== 200) {
-                    // 刷新验证码
                     refreshCaptcha("#captcha");
                 }
             });
