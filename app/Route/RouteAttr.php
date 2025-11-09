@@ -1,16 +1,16 @@
 <?php
 
-namespace extend\Attribute;
+namespace App\Route;
 
 use Attribute;
 
 /**
  * 控制器方法路由定义
  * 用法：
- * #[Route(path: "/user/login", methods: ["POST"], permission: "user.login")]
+ * #[RouteAttr(path: "/user/login", methods: ["POST"], permission: "user.login")]
  */
 #[Attribute(Attribute::TARGET_METHOD)]
-class Route
+class RouteAttr
 {
     /**
      * @var string

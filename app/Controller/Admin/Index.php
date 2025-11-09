@@ -3,25 +3,25 @@
 namespace App\Controller\Admin;
 
 use App\Controller\Common;
-use App\Service\AuthService;
+use App\Route\RouteAttr;
+use App\Service\Admin as AdminService;
 use DI\Attribute\Inject;
 use Exception;
-use extend\Attribute\Route;
 use support\Request;
 use support\Response;
 
 class Index extends Common
 {
     /**
-     * @var AuthService
+     * @var AdminService
      */
     #[Inject]
-    protected AuthService $authService;
+    protected AdminService $admin;
 
     /**
      * @return Response
      */
-    #[Route(path: "/admin/index", methods: ['GET'])]
+    #[RouteAttr(path: "/admin/index", methods: ['GET'])]
     public function index(): Response
     {
         return view('index');
@@ -33,13 +33,13 @@ class Index extends Common
      * @return Response
      * @throws Exception
      */
-    #[Route(path: "/admin/login", methods: ['GET', 'POST'])]
+    #[RouteAttr(path: "/admin/login", methods: ['GET', 'POST'])]
     public function login(Request $request): Response
     {
         if ($request->isAjax()) {
             $params = request()->post();
             $this->validateWith('Admin', $params, 'login');
-            $this->authService->login($params);
+            $this->admin->login($params);
         }
         return view('admin/login');
     }

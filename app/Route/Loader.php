@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Service;
+namespace App\Route;
 
 use App\Middleware\AccessControl;
-use extend\Attribute\Route as RouteAttr;
 use ReflectionClass;
 use ReflectionMethod;
 use Webman\Route;
 
-class RouteService
+class Loader
 {
     /**
      * 已注册的路由缓存（避免重复注册）
@@ -20,7 +19,7 @@ class RouteService
      * 注册应用路由
      *
      * 扫描 addons、app/Controller 目录，
-     * 并注册控制器方法上标记的 Route 注解路由。
+     * 并注册控制器方法上标记的 RouteAttr 注解路由。
      *
      * @return void
      */
