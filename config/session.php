@@ -20,8 +20,8 @@ use Webman\Session\RedisClusterSessionHandler;
 
 return [
 
-    'type'                  => 'file', // or redis or redis_cluster
-    'handler'               => FileSessionHandler::class,
+    'type'                  => 'redis', // or redis or redis_cluster
+    'handler'               => RedisSessionHandler::class,
     'config'                => [
         'file'          => [
             'save_path' => runtime_path() . '/sessions',
@@ -41,7 +41,7 @@ return [
             'prefix'  => 'redis_session_',
         ]
     ],
-    'session_name'          => 'PHPSID',
+    'session_name'          => 'TsW2_dw9',
     'auto_update_timestamp' => false,
     'lifetime'              => 7 * 24 * 60 * 60,
     'cookie_lifetime'       => 365 * 24 * 60 * 60,
