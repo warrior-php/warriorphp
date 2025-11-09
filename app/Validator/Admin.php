@@ -23,7 +23,6 @@ class Admin extends BaseValidator
     protected function rules(): array
     {
         return [
-
             /**
              * 用户名验证规则：
              * - 如果是邮箱格式则视为合法（登录时允许邮箱或用户名登录）
@@ -36,9 +35,9 @@ class Admin extends BaseValidator
                 v::email(), // 条件：是邮箱格式
                 v::alwaysValid(), // 如果是邮箱，跳过后续验证
                 v::allOf(
-                    v::alnum()->setTemplate(trans("Usernames can only contain letters and numbers")),
-                    v::noWhitespace()->setTemplate(trans("Username cannot contain spaces")),
-                    v::length(4, 18)->setTemplate(trans("Username must be between 4 and 18 characters long")),
+                    v::alnum()->setTemplate(trans('validator.admin.key1')),
+                    v::noWhitespace()->setTemplate(trans('validator.admin.key2')),
+                    v::length(4, 18)->setTemplate(trans('validator.admin.key3')),
                 ),
             ),
 
@@ -46,7 +45,7 @@ class Admin extends BaseValidator
              * 邮箱验证规则：
              * - 必须为合法邮箱格式
              */
-            'email'    => v::email()->setTemplate(trans("Please enter a valid email address")),
+            'email'    => v::email()->setTemplate(trans('validator.admin.key4')),
 
             /**
              * 密码验证规则：
@@ -54,8 +53,8 @@ class Admin extends BaseValidator
              * - 长度 6 ~ 32 个字符
              */
             'password' => v::allOf(
-                v::stringType()->setTemplate(trans("Password must be a string")),
-                v::length(6, 32)->setTemplate(trans("Password must be between 6 and 32 characters long"))
+                v::stringType()->setTemplate(trans('validator.admin.key5')),
+                v::length(6, 32)->setTemplate(trans('validator.admin.key6'))
             ),
         ];
     }
@@ -70,7 +69,6 @@ class Admin extends BaseValidator
     protected function scenes(): array
     {
         return [
-
             /**
              * 注册场景：
              * - 需要验证用户名、邮箱、密码

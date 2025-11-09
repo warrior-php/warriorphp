@@ -27,5 +27,15 @@ return [
     'business_exception' => [
         'key1' => 'Too many login attempts failed. Please try again later.',
         'key2' => 'Image verification code error',
+    ],
+    'validator'          => [
+        'admin' => [
+            'key1' => 'Usernames can only contain letters and numbers',
+            'key2' => 'Username cannot contain spaces',
+            'key3' => 'Username must be between 4 and 18 characters long',
+            'key4' => 'Please enter a valid email address',
+            'key5' => 'Password must be a string',
+            'key6' => 'Password must be between 6 and 32 characters long',
+        ]
     ]
 ];
