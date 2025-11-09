@@ -2,12 +2,12 @@
 
 namespace App\Service;
 
-use App\Exception\BusinessException;
 use App\Model\Admin;
 use Exception;
 use extend\Utils\DataCipher;
 use ReflectionClass;
 use ReflectionException;
+use support\exception\BusinessException;
 use support\Log;
 use support\Redis;
 
@@ -54,14 +54,14 @@ class AuthService
         $attemptsKey = 'admin_login:attempts:' . $ip;
         // 登录失败次数检查
         if (Redis::get($attemptsKey) >= $this->maxAttempts) {
-            throw new BusinessException(trans('business_exception.key1'));
+            throw new BusinessException(message: trans('business_exception.key1'));
         }
         // 图形验证码校验
         $captcha = mb_strtolower($params['captcha'] ?? '');
         $sessionCaptcha = mb_strtolower(session('admin-login-captcha') ?? '');
         session()->delete('admin-login-captcha');
         if ($captcha !== $sessionCaptcha) {
-            throw new BusinessException(trans('business_exception.key2')); // 验证码错误
+            throw new BusinessException(message: trans('business_exception.key2')); // 验证码错误
         }
         $admin = Admin::where('email', $params['email'])->first();
         // 密码校验失败：记录尝试次数
@@ -72,7 +72,7 @@ class AuthService
                 trans('admin.account.login.key012'),
                 ['email' => $params['email'], 'ip' => $ip, 'attempts' => $attempts]
             );
-            throw new BusinessException(trans('admin.account.login.key013')); // 账号或密码错误
+            throw new BusinessException(message: trans('admin.account.login.key013')); // 账号或密码错误
         }
         // 更新登录记录
         $admin->login_at = date('Y-m-d H:i:s');

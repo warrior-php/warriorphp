@@ -2,8 +2,8 @@
 
 namespace App\Middleware;
 
-use App\Exception\BusinessException;
 use Exception;
+use support\exception\BusinessException;
 use support\View;
 use Webman\Http\Request;
 use Webman\Http\Response;
