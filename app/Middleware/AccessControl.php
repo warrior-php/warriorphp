@@ -39,7 +39,7 @@ class AccessControl implements MiddlewareInterface
                 $response = json(['code' => $code, 'msg' => $msg, 'data' => []]);
             } else {
                 if ($code === 401) {
-                    return redirect(url($loginUrl));
+                    return redirect($loginUrl);
                 } else {
                     $request->app = '';
                     $request->plugin = 'admin';

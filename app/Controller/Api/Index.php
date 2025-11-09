@@ -16,7 +16,7 @@ class Index extends Common
      *
      * @var string[]
      */
-    protected array $noNeedLogin = [''];
+    protected array $noNeedLogin = ['index'];
 
     /**
      * @return Response
