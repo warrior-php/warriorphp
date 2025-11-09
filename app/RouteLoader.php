@@ -95,7 +95,11 @@ class RouteLoader
                             }
                             // 注册路由
                             $route = $httpMethod === 'ANY' ? Route::any($meta->path, $callback) : Route::add($httpMethod, $meta->path, $callback);
-                            $route->name($routeName)->middleware([AccessControl::class]);
+                            $route->name($routeName);
+                            if ($meta->middleware) {
+                                $fullClass = "\\App\\Middleware\\$meta->middleware";
+                                $route->middleware([$fullClass]);
+                            }
                         }
                     }
                 }

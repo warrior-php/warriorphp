@@ -5,7 +5,7 @@ namespace App\Middleware;
 
 use App\Service\Auth as AuthService;
 use DI\Attribute\Inject;
-use ReflectionException;
+use Exception;
 use Webman\Http\Request;
 use Webman\Http\Response;
 use Webman\MiddlewareInterface;
@@ -23,7 +23,7 @@ class AccessControl implements MiddlewareInterface
      * @param callable $handler
      *
      * @return Response
-     * @throws ReflectionException
+     * @throws Exception
      */
     public function process(Request $request, callable $handler): Response
     {
@@ -34,7 +34,7 @@ class AccessControl implements MiddlewareInterface
         $msg = '';
         $loginUrl = '';
 
-        if (!$this->auth::canAccess($controller, $action, $code, $msg, $loginUrl)) {
+        if (!$this->auth::canAccess($controller, $code, $msg, $loginUrl)) {
             if ($request->expectsJson()) {
                 $response = json(['code' => $code, 'msg' => $msg]);
             } else {

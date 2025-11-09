@@ -4,8 +4,6 @@ declare(strict_types=1);
 namespace App\Service;
 
 use Exception;
-use ReflectionClass;
-use ReflectionException;
 use support\exception\BusinessException;
 
 /**
@@ -18,32 +16,20 @@ class Auth
 {
     /**
      * @param string $controller
-     * @param string $action
      * @param int    $code
      * @param string $msg
      * @param string $loginUrl
      *
      * @return bool
-     * @throws ReflectionException
      * @throws Exception
      */
-    public static function canAccess(string $controller, string $action, int &$code = 0, string &$msg = '', string &$loginUrl = ''): bool
+    public static function canAccess(string $controller, int &$code = 0, string &$msg = '', string &$loginUrl = ''): bool
     {
         // 无控制器信息说明是函数调用，函数不属于任何控制器，鉴权操作应该在函数内部完成。
         if (!$controller) {
             return true;
         }
 
-        // 获取控制器鉴权信息
-        $class = new ReflectionClass($controller);
-        $properties = $class->getDefaultProperties();
-        $noNeedLogin = $properties['noNeedLogin'] ?? [];
-        $noNeedAuth = $properties['noNeedAuth'] ?? [];
-
-        // 不需要登录
-        if (in_array($action, $noNeedLogin)) {
-            return true;
-        }
         $sessionKey = match (true) {
             str_contains($controller, 'Admin') => 'admin',
             str_contains($controller, 'Api') => 'api',

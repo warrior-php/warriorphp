@@ -25,17 +25,17 @@ class Route
     /**
      * @var string|null
      */
-    public ?string $permission;
+    public ?string $middleware;
 
     /**
      * @param string      $path       路径
      * @param array       $methods    请求方法
-     * @param string|null $permission 权限
+     * @param string|null $middleware 权限
      */
-    public function __construct(string $path, array $methods = ['ANY'], ?string $permission = null)
+    public function __construct(string $path, array $methods = ['ANY'], ?string $middleware = null)
     {
         $this->path = $path;
         $this->methods = $methods;
-        $this->permission = $permission;
+        $this->middleware = $middleware;
     }
 }
