@@ -50,4 +50,19 @@ class Index extends Common
         }
         return view('admin/login');
     }
+
+    /**
+     * 管理员退出
+     *
+     * @param Request $request
+     *
+     * @return Response
+     * @throws Exception
+     */
+    #[Route(path: "/admin/logout", methods: ['GET'])]
+    public function logout(Request $request): Response
+    {
+        $request->session()->delete('admin');
+        return result(302, trans('key27'), ['url' => url('admin.login')]);
+    }
 }

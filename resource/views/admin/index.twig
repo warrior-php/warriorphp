@@ -1,8 +1,9 @@
-{% extends 'layout.twig' %}
+{% extends 'admin/layout.twig' %}
 
 {% block js %}
+    {{ parent() }}
     <script type="text/javascript">
-        Do('base', () => {
+        Do('dashboard', () => {
 
         });
     </script>

@@ -23,3 +23,5 @@ Do.add('custom-validation-init', {path: currentPath + 'forms/custom-validation-i
 Do.add('jquery.form', {path: currentPath + 'forms/jquery.form.js', type: 'js'});
 Do.add('toastr-init', {path: currentPath + 'plugins/toastr-init.js', type: 'js'});
 Do.add('form', {path: currentPath + 'forms/form.js', type: 'js', requires: ['validation', 'custom-validation-init', 'jquery.form', 'toastr-init']});
+// 仪表盘
+Do.add('dashboard', {path: currentPath + 'dashboards/dashboard.js', type: 'js',});
