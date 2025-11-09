@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Route\RouteAttr;
+use extend\Route\Route;
 use App\Validator\BaseValidator;
 use Exception;
 use support\exception\BusinessException;
@@ -77,7 +77,7 @@ class Common
      * @return Response
      * @throws Exception
      */
-    #[RouteAttr(path: "/setLang", methods: ['POST'])]
+    #[Route(path: "/setLang", methods: ['POST'])]
     public function setLang(Request $request): Response
     {
         $postData = $request->post();
@@ -97,7 +97,7 @@ class Common
      * @return Response
      * @throws Exception
      */
-    #[RouteAttr(path: "/captcha", methods: ['GET'])]
+    #[Route(path: "/captcha", methods: ['GET'])]
     public function captcha(Request $request, string $type = 'captcha'): Response
     {
         $builder = new PhraseBuilder(4, 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ');

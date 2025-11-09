@@ -3,7 +3,7 @@
 namespace App\Controller\Install;
 
 use App\Controller\Common;
-use App\Route\RouteAttr;
+use extend\Route\Route;
 
 class Index extends Common
 {
@@ -20,7 +20,7 @@ class Index extends Common
     /**
      * @return string
      */
-    #[RouteAttr(path: "/install/index", methods: ['GET'])]
+    #[Route(path: "/install/index", methods: ['GET'])]
     public function index(): string
     {
         return 'index';

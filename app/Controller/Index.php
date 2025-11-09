@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Model\Admin;
-use App\Route\RouteAttr;
+use extend\Route\Route;
 use support\Response;
 
 class Index extends Common
@@ -11,7 +11,7 @@ class Index extends Common
     /**
      * @return Response
      */
-    #[RouteAttr(path: "/index", methods: ['GET'])]
+    #[Route(path: "/index", methods: ['GET'])]
     public function index(): Response
     {
         Admin::findByIdentifier('admin');

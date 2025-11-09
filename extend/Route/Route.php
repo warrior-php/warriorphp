@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Route;
+namespace extend\Route;
 
 use Attribute;
 
@@ -10,7 +10,7 @@ use Attribute;
  * #[RouteAttr(path: "/user/login", methods: ["POST"], permission: "user.login")]
  */
 #[Attribute(Attribute::TARGET_METHOD)]
-class RouteAttr
+class Route
 {
     /**
      * @var string

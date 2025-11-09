@@ -3,7 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Controller\Common;
-use App\Route\RouteAttr;
+use extend\Route\Route;
 use App\Service\Admin as AdminService;
 use DI\Attribute\Inject;
 use Exception;
@@ -21,7 +21,7 @@ class Index extends Common
     /**
      * @return Response
      */
-    #[RouteAttr(path: "/admin/index", methods: ['GET'])]
+    #[Route(path: "/admin/index", methods: ['GET'])]
     public function index(): Response
     {
         return view('index');
@@ -33,7 +33,7 @@ class Index extends Common
      * @return Response
      * @throws Exception
      */
-    #[RouteAttr(path: "/admin/login", methods: ['GET', 'POST'])]
+    #[Route(path: "/admin/login", methods: ['GET', 'POST'])]
     public function login(Request $request): Response
     {
         if ($request->isAjax()) {

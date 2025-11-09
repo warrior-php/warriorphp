@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-use App\Route\Loader;
+use extend\Route\Loader;
 use Support\Request;
 use Webman\Route;
 

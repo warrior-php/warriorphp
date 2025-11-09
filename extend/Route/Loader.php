@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Route;
+namespace extend\Route;
 
 use App\Middleware\AccessControl;
 use ReflectionClass;
 use ReflectionMethod;
 use Webman\Route;
+use extend\Route\Route as RouteAttr;
 
 class Loader
 {
