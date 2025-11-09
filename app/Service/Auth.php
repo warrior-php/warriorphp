@@ -6,6 +6,7 @@ namespace App\Service;
 use Exception;
 use ReflectionClass;
 use ReflectionException;
+use support\exception\BusinessException;
 
 /**
  * Class Auth
@@ -20,11 +21,13 @@ class Auth
      * @param string $action
      * @param int    $code
      * @param string $msg
+     * @param string $loginUrl
      *
      * @return bool
-     * @throws ReflectionException|Exception
+     * @throws ReflectionException
+     * @throws Exception
      */
-    public static function canAccess(string $controller, string $action, int &$code = 0, string &$msg = ''): bool
+    public static function canAccess(string $controller, string $action, int &$code = 0, string &$msg = '', string &$loginUrl = ''): bool
     {
         // 无控制器信息说明是函数调用，函数不属于任何控制器，鉴权操作应该在函数内部完成。
         if (!$controller) {
@@ -50,7 +53,16 @@ class Auth
         $account = self::getCurrentAccount(null, $sessionKey);
         if (!$account) {
             $msg = trans('key5');
-            $code = 401; // 401是未登录固定的返回码
+            $code = 401;
+            switch ($sessionKey) {
+                case 'admin';
+                    $loginUrl = url('admin.login');
+                    break;
+                case 'api';
+                    throw new BusinessException(message: trans('key28'));
+                default:
+                    $loginUrl = url('user.login');
+            }
             return false;
         }
 
