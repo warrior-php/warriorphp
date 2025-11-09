@@ -28,7 +28,6 @@ class AccessControl implements MiddlewareInterface
     public function process(Request $request, callable $handler): Response
     {
         $controller = $request->controller;
-        $action = $request->action;
 
         $code = 0;
         $msg = '';
