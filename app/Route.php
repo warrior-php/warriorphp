@@ -1,6 +1,6 @@
 <?php
 
-namespace extend\Route;
+namespace App;
 
 use Attribute;
 

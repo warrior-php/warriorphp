@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-use extend\Route\Loader;
+use App\RouteLoader as AppRoute;
 use Support\Request;
 use Webman\Route;
 
@@ -9,7 +9,7 @@ use Webman\Route;
 Route::disableDefaultRoute();
 
 // 注册应用路由
-Loader::registerRoutes();
+AppRoute::registerRoutes();
 
 // 错误处理路由
 Route::fallback(function (Request $request, $status) {

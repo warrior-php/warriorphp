@@ -1,9 +1,10 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
 use App\Controller\Common;
-use extend\Route\Route;
+use App\Route;
 use App\Service\Admin as AdminService;
 use DI\Attribute\Inject;
 use Exception;

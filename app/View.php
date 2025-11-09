@@ -1,21 +1,70 @@
 <?php
+declare(strict_types=1);
 
-namespace extend\View;
+namespace App;
 
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 use Twig\Loader\FilesystemLoader;
-use Webman\View;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
+use Webman\View as WebmanView;
 
-class TwigView implements View
+class View extends AbstractExtension implements WebmanView
 {
     /**
-     * Assign.
+     * 注册自定义 Twig 函数
+     * @return TwigFunction[]
+     */
+    public function getFunctions(): array
+    {
+        return [
+            new TwigFunction('__ASSETS__', [$this, 'getAssetsPath']),
+            new TwigFunction('url', [$this, 'generateUrl']),
+            new TwigFunction('trans', [$this, 'generateTrans']),
+        ];
+    }
+
+    /**
+     * @param string $path
+     *
+     * @return string
+     */
+    public function getAssetsPath(string $path = ''): string
+    {
+        return '/assets/' . ltrim($path, '/');
+    }
+
+    /**
+     * @param string $path
+     * @param array  $params
+     *
+     * @return string
+     */
+    public function generateUrl(string $path, array $params = []): string
+    {
+        return url($path, $params);
+    }
+
+    /**
+     * @param string $key
+     *
+     * @return string
+     */
+    public function generateTrans(string $key): string
+    {
+        return trans($key);
+    }
+
+    /**
+     * 变量注入
      *
      * @param string|array $name
-     * @param mixed        $value
+     * @param mixed|null   $value
+     *
+     * @return void
      */
     public static function assign(string|array $name, mixed $value = null): void
     {
@@ -24,7 +73,7 @@ class TwigView implements View
     }
 
     /**
-     * Render.
+     * 渲染模板
      *
      * @param string      $template
      * @param array       $vars
@@ -34,7 +83,7 @@ class TwigView implements View
      * @return string
      * @throws LoaderError
      * @throws RuntimeError
-     * @throws SyntaxError resources
+     * @throws SyntaxError
      */
     public static function render(string $template, array $vars, ?string $app = null, ?string $plugin = null): string
     {
@@ -44,7 +93,9 @@ class TwigView implements View
         $app = $app === null ? ($request->app ?? '') : $app;
         $configPrefix = $plugin ? "plugin.$plugin." : '';
         $viewSuffix = config("{$configPrefix}view.options.view_suffix", 'html');
-        $baseViewPath = $plugin ? base_path() . "/plugin/$plugin/app" : ($app == 'public' ? public_path() : views_path());
+        $baseViewPath = $plugin
+            ? base_path() . "/plugin/$plugin/app"
+            : ($app == 'public' ? public_path() : views_path());
 
         if ($template[0] === '/') {
             $template = ltrim($template, '/');
@@ -59,11 +110,9 @@ class TwigView implements View
         }
 
         if (!isset($views[$viewPath])) {
-            $views[$viewPath] = new Environment(new FilesystemLoader($viewPath), config("{$configPrefix}view.options", []));
-            $extension = config("{$configPrefix}view.extension");
-            if ($extension) {
-                $extension($views[$viewPath]);
-            }
+            $twig = new Environment(new FilesystemLoader($viewPath), config("{$configPrefix}view.options", []));
+            $twig->addExtension(new self()); // 注册自定义函数
+            $views[$viewPath] = $twig;
         }
 
         if (isset($request->view_vars)) {

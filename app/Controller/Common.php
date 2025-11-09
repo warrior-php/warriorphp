@@ -1,8 +1,9 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Controller;
 
-use extend\Route\Route;
+use App\Route;
 use App\Validator\BaseValidator;
 use Exception;
 use support\exception\BusinessException;

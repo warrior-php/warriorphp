@@ -1,9 +1,9 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Model\Admin;
-use extend\Route\Route;
+use App\Route;
 use support\Response;
 
 class Index extends Common
@@ -14,7 +14,6 @@ class Index extends Common
     #[Route(path: "/index", methods: ['GET'])]
     public function index(): Response
     {
-        Admin::findByIdentifier('admin');
         return view('index');
     }
 }

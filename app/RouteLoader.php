@@ -1,14 +1,15 @@
 <?php
+declare(strict_types=1);
 
-namespace extend\Route;
+namespace App;
 
 use App\Middleware\AccessControl;
+use App\Route as RouteAttr;
 use ReflectionClass;
 use ReflectionMethod;
 use Webman\Route;
-use extend\Route\Route as RouteAttr;
 
-class Loader
+class RouteLoader
 {
     /**
      * 已注册的路由缓存（避免重复注册）

@@ -1,9 +1,10 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Controller\Install;
 
 use App\Controller\Common;
-use extend\Route\Route;
+use App\Route;
 
 class Index extends Common
 {

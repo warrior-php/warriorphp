@@ -38,7 +38,7 @@ return [
     ],
     // File update detection and automatic reload
     'Monitor' => [
-        'handler'     => support\Monitor::class,                // 热重载进程类
+        'handler'     => App\Monitor::class,                // 热重载进程类
         'reloadable'  => false,                         // 是否允许子进程自动重载
         'constructor' => [
             'monitorDir'        => array_merge([

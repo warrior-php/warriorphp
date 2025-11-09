@@ -14,19 +14,15 @@ declare(strict_types=1);
  * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-use extend\View\TwigExtension;
-use extend\View\TwigView;
+use App\View;
 
 return [
-    'handler'   => TwigView::class,
-    'options'   => [
-        'debug'       => true, // 开发阶段建议开启 debug
-        'cache'       => runtime_path() . '/views', // 缓存目录，正常设置即可
-        'auto_reload' => true, // 启用自动重新编译模板
+    'handler' => View::class,
+    'options' => [
+        'debug'       => true,
+        'cache'       => runtime_path() . '/views',
+        'auto_reload' => true,
         'view_suffix' => 'twig',
         'charset'     => 'UTF-8',
     ],
-    'extension' => function ($twig) {
-        $twig->addExtension(new TwigExtension());
-    }
 ];
