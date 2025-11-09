@@ -136,9 +136,9 @@ if (!function_exists('result')) {
         $message = trans(STATUS_CODE[$code] ?? 'unknown');
         if (is_array($msg) || is_object($msg)) {
             $var = $msg;
-            $data['message'] = $message;
+            $data['msg'] = $message;
         } else {
-            $data['message'] = $msg ?: $message;
+            $data['msg'] = $msg ?: $message;
         }
 
         if (isset($var['url'])) {

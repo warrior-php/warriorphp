@@ -41,6 +41,7 @@ class Index extends Common
             $params = request()->post();
             $this->validate('Admin', $params, 'login');
             $this->admin->login($params);
+            return result(302, trans('key27'), ['url' => url('admin.index')]);
         }
         return view('admin/login');
     }

@@ -58,7 +58,7 @@
                                     <div class="mt-2">
                                         <button class="btn w-100 text-dark border fw-normal d-flex align-items-center justify-content-center rounded-1 py-8">
                                             <img src="{{ __ASSETS__('images/svgs/facebook-icon.svg') }}" alt="modernize-img" class="img-fluid me-2" width="18" height="18">
-                                            <span class="flex-shrink-0">{{ trans("key14") }}</span>
+                                            <span class="flex-shrink-0">{{ trans("key1") }}</span>
                                         </button>
                                     </div>
                                 </div>
@@ -100,9 +100,7 @@
     <script type="text/javascript">
         Do('base', 'form', () => {
             $('#form').isForm((rel) => {
-                if (rel.code !== 200) {
-                    refreshCaptcha("#captcha");
-                }
+                if (![200, 302].includes(rel.code)) refreshCaptcha('#captcha');
             });
 
             $('#captcha').on('click', function () {

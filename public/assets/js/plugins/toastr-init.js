@@ -50,17 +50,17 @@
             function q(b, c, d) {
                 var e = !(!d || !d.force) && d.force;
                 return (!(!b || (!e && 0 !== a(":focus", b).length)) && (b[c.hideMethod]({
-                        duration: c.hideDuration, easing: c.hideEasing, complete: function () {
-                            w(b);
-                        },
-                    }), !0));
+                    duration: c.hideDuration, easing: c.hideEasing, complete: function () {
+                        w(b);
+                    },
+                }), !0));
             }
 
             function r(c) {
                 return ((b = a("<div/>")
-                        .attr("id", c.containerId)
-                        .addClass("toast-container")
-                        .addClass(c.positionClass)), b.appendTo(a(c.target)), b);
+                    .attr("id", c.containerId)
+                    .addClass("toast-container")
+                    .addClass(c.positionClass)), b.appendTo(a(c.target)), b);
             }
 
             function s() {
@@ -70,7 +70,7 @@
                     containerId: "toast-container",
                     debug: !1,
                     showMethod: "fadeIn",
-                    showDuration: 300,
+                    showDuration: 1e3,
                     showEasing: "swing",
                     onShown: void 0,
                     hideMethod: "fadeOut",
@@ -109,11 +109,11 @@
             function u(c) {
                 function q(a) {
                     return (null == a && (a = ""), a
-                            .replace(/&/g, "&amp;")
-                            .replace(/"/g, "&quot;")
-                            .replace(/'/g, "&#39;")
-                            .replace(/</g, "&lt;")
-                            .replace(/>/g, "&gt;"));
+                        .replace(/&/g, "&amp;")
+                        .replace(/"/g, "&quot;")
+                        .replace(/'/g, "&#39;")
+                        .replace(/</g, "&lt;")
+                        .replace(/>/g, "&gt;"));
                 }
 
                 function r() {
@@ -193,10 +193,10 @@
                     var c = b && e.closeMethod !== !1 ? e.closeMethod : e.hideMethod, d = b && e.closeDuration !== !1 ? e.closeDuration : e.hideDuration,
                         f = b && e.closeEasing !== !1 ? e.closeEasing : e.hideEasing;
                     if (!a(":focus", j).length || b) return (clearTimeout(o.intervalId), j[c]({
-                            duration: d, easing: f, complete: function () {
-                                w(j), clearTimeout(h), e.onHidden && "hidden" !== p.state && e.onHidden(), (p.state = "hidden"), (p.endTime = new Date()), t(p);
-                            },
-                        }));
+                        duration: d, easing: f, complete: function () {
+                            w(j), clearTimeout(h), e.onHidden && "hidden" !== p.state && e.onHidden(), (p.state = "hidden"), (p.endTime = new Date()), t(p);
+                        },
+                    }));
                 }
 
                 function H() {
@@ -348,6 +348,6 @@
     $("#fade-toast").on("click", function () {
         toastr.success("I do not think that word means what you think it means.", "Slide Down / Slide Up!", {showMethod: "fadeIn", hideMethod: "fadeOut", timeOut: 1000});
     });
-})("function" == typeof define && define.amd ? define : function (a, b) {
-    "undefined" != typeof module && module.exports ? (module.exports = b(require("jquery"))) : (window.toastr = b(window.jQuery));
+})(function (deps, factory) {
+    window.toastr = factory(window.jQuery);
 });

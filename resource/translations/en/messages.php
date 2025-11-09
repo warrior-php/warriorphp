@@ -27,4 +27,5 @@ return [
     'key24' => 'Please enter a valid email address',
     'key25' => 'Password must be a string',
     'key26' => 'Password must be between 6 and 32 characters long',
+    'key27' => 'Login successful',
 ];

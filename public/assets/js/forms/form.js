@@ -37,10 +37,17 @@
                     type: param.type, dataType: param.datatype, headers: param.headers, timeout: param.timeout, async: true, success: function (rel) {
                         switch (rel.code) {
                             case 200:
+                                toastr.success(rel.msg);
                                 break;
                             case 204:
+                                console.info(rel);
                                 break;
                             case 302:
+                                toastr.success(rel.msg);
+                                setTimeout(function () {
+                                    if (rel.hasOwnProperty('url')) window.location.replace(rel.url);
+                                    else window.location.reload();
+                                }, 1000);
                                 break;
                             default:
                                 toastr.error(rel.msg);
