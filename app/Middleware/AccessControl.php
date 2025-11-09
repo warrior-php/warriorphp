@@ -12,7 +12,7 @@ use Webman\MiddlewareInterface;
 class AccessControl implements MiddlewareInterface
 {
     #[Inject]
-    protected AuthService $authServices;
+    protected AuthService $authService;
 
     /**
      * @param Request  $request
@@ -29,7 +29,7 @@ class AccessControl implements MiddlewareInterface
         $code = 0;
         $msg = '';
 
-        if (!$this->authServices::canAccess($controller, $action, $code, $msg)) {
+        if (!$this->authService::canAccess($controller, $action, $code, $msg)) {
             if ($request->expectsJson()) {
                 $response = json(['code' => $code, 'msg' => $msg, 'data' => []]);
             } else {
