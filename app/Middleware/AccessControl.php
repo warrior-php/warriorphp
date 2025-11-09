@@ -36,7 +36,7 @@ class AccessControl implements MiddlewareInterface
 
         if (!$this->auth::canAccess($controller, $action, $code, $msg, $loginUrl)) {
             if ($request->expectsJson()) {
-                $response = json(['code' => $code, 'msg' => $msg, 'data' => []]);
+                $response = json(['code' => $code, 'msg' => $msg]);
             } else {
                 if ($code === 401) {
                     return redirect($loginUrl);
