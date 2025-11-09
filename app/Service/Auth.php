@@ -18,12 +18,13 @@ class Auth
      * @param string $controller
      * @param int    $code
      * @param string $msg
-     * @param string $loginUrl
+     * @param string $url
+     * @param null   $account
      *
      * @return bool
      * @throws Exception
      */
-    public static function canAccess(string $controller, int &$code = 0, string &$msg = '', string &$loginUrl = ''): bool
+    public static function canAccess(string $controller, int &$code = 0, string &$msg = '', string &$url = '', &$account = null): bool
     {
         // 无控制器信息说明是函数调用，函数不属于任何控制器，鉴权操作应该在函数内部完成。
         if (!$controller) {
@@ -42,12 +43,12 @@ class Auth
             $code = 401;
             switch ($sessionKey) {
                 case 'admin';
-                    $loginUrl = url('admin.login');
+                    $url = url('admin.login');
                     break;
                 case 'api';
                     throw new BusinessException(message: trans('key28'));
                 default:
-                    $loginUrl = url('user.login');
+                    $url = url('user.login');
             }
             return false;
         }

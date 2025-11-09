@@ -6,6 +6,7 @@ namespace App\Middleware;
 use App\Service\Auth as AuthService;
 use DI\Attribute\Inject;
 use Exception;
+use support\View;
 use Webman\Http\Request;
 use Webman\Http\Response;
 use Webman\MiddlewareInterface;
@@ -31,14 +32,15 @@ class AccessControl implements MiddlewareInterface
 
         $code = 0;
         $msg = '';
-        $loginUrl = '';
+        $url = '';
+        $account = null;
 
-        if (!$this->auth::canAccess($controller, $code, $msg, $loginUrl)) {
+        if (!$this->auth::canAccess($controller, $code, $msg, $url, $account)) {
             if ($request->expectsJson()) {
                 $response = json(['code' => $code, 'msg' => $msg]);
             } else {
                 if ($code === 401) {
-                    return redirect($loginUrl);
+                    return redirect($url);
                 } else {
                     $request->app = '';
                     $request->plugin = 'admin';
@@ -46,7 +48,10 @@ class AccessControl implements MiddlewareInterface
                 }
             }
         } else {
-            $response = $request->method() == 'OPTIONS' ? response('') : $handler($request);
+            View::assign([
+                'account' => $account,
+            ]);
+            $response = $request->method() == 'OPTIONS' ? response() : $handler($request);
         }
 
         return $response;
