@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Validator;
+namespace App;
 
 use Respect\Validation\Exceptions\NestedValidationException;
 use Respect\Validation\Validator as v;
@@ -17,7 +17,7 @@ use support\exception\BusinessException;
  *   $rule = new XxxRule();
  *   $rule->scene('register')->validate($data);
  */
-abstract class BaseValidator
+abstract class Validator
 {
     /**
      * 当前选择的场景字段名列表

@@ -39,7 +39,7 @@ class Index extends Common
     {
         if ($request->isAjax()) {
             $params = request()->post();
-            $this->validateWith('Admin', $params, 'login');
+            $this->validate('Admin', $params, 'login');
             $this->admin->login($params);
         }
         return view('admin/login');

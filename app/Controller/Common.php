@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Validator;
 use App\Route;
-use App\Validator\BaseValidator;
 use Exception;
 use support\exception\BusinessException;
 use support\Request;
@@ -46,7 +46,7 @@ class Common
      *
      * @return void
      */
-    protected function validateWith(string $ruleClass, array $data, string $scene = ''): void
+    protected function validate(string $ruleClass, array $data, string $scene = ''): void
     {
         // 拼接完整类名（如果没带命名空间）
         if (!str_contains($ruleClass, '\\')) {
@@ -66,7 +66,7 @@ class Common
             $validator->scene($scene);
         }
 
-        /** @var BaseValidator $validator */
+        /** @var Validator $validator */
         $validator->validate($data);
     }
 
