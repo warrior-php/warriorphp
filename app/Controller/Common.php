@@ -3,8 +3,10 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Service\Auth as AuthService;
 use App\Validator;
 use App\Route;
+use DI\Attribute\Inject;
 use Exception;
 use support\exception\BusinessException;
 use support\Request;
@@ -14,6 +16,13 @@ use Webman\Captcha\PhraseBuilder;
 
 class Common
 {
+    /**
+     * AuthService
+     * @var AuthService
+     */
+    #[Inject]
+    protected AuthService $auth;
+
     /**
      * 无需登录的操作列表
      *

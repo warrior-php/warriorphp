@@ -37,6 +37,11 @@ class Index extends Common
     #[Route(path: "/admin/login", methods: ['GET', 'POST'])]
     public function login(Request $request): Response
     {
+        // 判断是否登录
+        if ($this->auth->getCurrentAccount()) {
+            return redirect(url('admin.index'));
+        }
+
         if ($request->isAjax()) {
             $params = request()->post();
             $this->validate('Admin', $params, 'login');

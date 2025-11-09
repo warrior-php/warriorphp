@@ -41,11 +41,15 @@ class Auth
         if (in_array($action, $noNeedLogin)) {
             return true;
         }
-
+        $sessionKey = match (true) {
+            str_contains($controller, 'Admin') => 'admin',
+            str_contains($controller, 'Api') => 'api',
+            default => 'user',
+        };
         // 获取登录信息
-        $account = self::getCurrentAccount();
+        $account = self::getCurrentAccount(null, $sessionKey);
         if (!$account) {
-            $msg = '请登录';
+            $msg = trans('key5');
             $code = 401; // 401是未登录固定的返回码
             return false;
         }
@@ -76,25 +80,19 @@ class Auth
      */
     public static function getCurrentAccount(null|array|string $fields = null, string $key = 'admin'): mixed
     {
-        // 如果你有刷新逻辑，可以在这里调用：
         self::refreshSession($key);
-
         $account = session($key);
-
         if (!$account) {
             return null;
         }
-
         // 返回完整数据
         if ($fields === null) {
             return $account;
         }
-
         // 返回多个字段
         if (is_array($fields)) {
             return array_map(fn($field) => $account[$field] ?? null, $fields);
         }
-
         // 返回单个字段
         return $account[$fields] ?? null;
     }

@@ -17,7 +17,7 @@ class AppSetup implements MiddlewareInterface
      *
      * @var string
      */
-    protected static string $version = 'v2.7.0';
+    protected static string $version = 'v1.0.0';
 
     /**
      * 处理请求
@@ -42,7 +42,7 @@ class AppSetup implements MiddlewareInterface
         }
         // 已安装 & 是安装控制器 -> 抛出异常阻止重复安装
         if ($isInstalled && $isInstallController) {
-            throw new BusinessException(message: trans("The system has been installed. To reinstall, delete the resource/install.lock file."));
+            throw new BusinessException(message: trans('key28'));
         }
 
         // 共享全局视图变量

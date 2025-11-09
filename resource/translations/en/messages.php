@@ -28,4 +28,5 @@ return [
     'key25' => 'Password must be a string',
     'key26' => 'Password must be between 6 and 32 characters long',
     'key27' => 'Login successful',
+    'key28' => 'The system has been installed. To reinstall, delete the resource/install.lock file',
 ];
