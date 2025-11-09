@@ -1,4 +1,4 @@
-{% extends './layout.twig' %}
+{% extends 'layout.twig' %}
 
 {% block wrapper %}
     <div id="main-wrapper" class="auth-customizer-none">
@@ -122,6 +122,5 @@
                 $el.attr('src', url + '&t=' + new Date().getTime());
             }
         });
-
     </script>
 {% endblock %}

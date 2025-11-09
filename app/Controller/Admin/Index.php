@@ -25,7 +25,7 @@ class Index extends Common
     #[Route(path: "/admin/index", methods: ['GET'])]
     public function index(): Response
     {
-        return view('index');
+        return view('admin/index');
     }
 
     /**
