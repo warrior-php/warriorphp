@@ -1,41 +1,30 @@
 <?php
 
 return [
-    'language'           => 'English',
-    'unknown'            => 'Unknown error',
-    'success'            => 'Success',
-    'redirect'           => 'Redirect',
-    'unauthorized'       => 'Unauthorized',
-    'forbidden'          => 'Forbidden',
-    // 后台相关
-    'admin'              => [
-        'login' => [
-            'key1'  => 'Username',
-            'key2'  => 'Password',
-            'key3'  => 'or sign in with',
-            'key4'  => 'Google',
-            'key5'  => 'Facebook',
-            'key6'  => 'Remeber this Device',
-            'key7'  => 'Sign In',
-            'key8'  => 'Username required',
-            'key9'  => 'Login password is required',
-            'key10' => 'Verification Code',
-            'key11' => 'Image verification code is required.',
-        ]
-    ],
-    // 错误提示
-    'business_exception' => [
-        'key1' => 'Too many login attempts failed. Please try again later.',
-        'key2' => 'Image verification code error',
-    ],
-    'validator'          => [
-        'admin' => [
-            'key1' => 'Usernames can only contain letters and numbers',
-            'key2' => 'Username cannot contain spaces',
-            'key3' => 'Username must be between 4 and 18 characters long',
-            'key4' => 'Please enter a valid email address',
-            'key5' => 'Password must be a string',
-            'key6' => 'Password must be between 6 and 32 characters long',
-        ]
-    ]
+    'key1'  => 'English',
+    'key2'  => 'Unknown error',
+    'key3'  => 'Success',
+    'key4'  => 'Redirect',
+    'key5'  => 'Unauthorized',
+    'key6'  => 'Forbidden',
+    'key7'  => 'Too many login attempts failed. Please try again later',
+    'key8'  => 'Image verification code error',
+    'key9'  => 'Incorrect username or password',
+    'key10' => 'Username',
+    'key11' => 'Password',
+    'key12' => 'or sign in with',
+    'key13' => 'Google',
+    'key14' => 'Facebook',
+    'key15' => 'Remeber this Device',
+    'key16' => 'Sign In',
+    'key17' => 'Username required',
+    'key18' => 'Login password is required',
+    'key19' => 'Verification Code',
+    'key20' => 'Image verification code is required',
+    'key21' => 'Usernames can only contain letters and numbers',
+    'key22' => 'Username cannot contain spaces',
+    'key23' => 'Username must be between 4 and 18 characters long',
+    'key24' => 'Please enter a valid email address',
+    'key25' => 'Password must be a string',
+    'key26' => 'Password must be between 6 and 32 characters long',
 ];

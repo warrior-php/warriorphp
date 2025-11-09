@@ -37,9 +37,9 @@ class Admin extends Validator
                 v::email(), // 条件：是邮箱格式
                 v::alwaysValid(), // 如果是邮箱，跳过后续验证
                 v::allOf(
-                    v::alnum()->setTemplate(trans('validator.admin.key1')),
-                    v::noWhitespace()->setTemplate(trans('validator.admin.key2')),
-                    v::length(4, 18)->setTemplate(trans('validator.admin.key3')),
+                    v::alnum()->setTemplate(trans('key21')),
+                    v::noWhitespace()->setTemplate(trans('key22')),
+                    v::length(4, 18)->setTemplate(trans('key23')),
                 ),
             ),
 
@@ -47,7 +47,7 @@ class Admin extends Validator
              * 邮箱验证规则：
              * - 必须为合法邮箱格式
              */
-            'email'    => v::email()->setTemplate(trans('validator.admin.key4')),
+            'email'    => v::email()->setTemplate(trans('key24')),
 
             /**
              * 密码验证规则：
@@ -55,8 +55,8 @@ class Admin extends Validator
              * - 长度 6 ~ 32 个字符
              */
             'password' => v::allOf(
-                v::stringType()->setTemplate(trans('validator.admin.key5')),
-                v::length(6, 32)->setTemplate(trans('validator.admin.key6'))
+                v::stringType()->setTemplate(trans('key25')),
+                v::length(6, 32)->setTemplate(trans('key26'))
             ),
         ];
     }

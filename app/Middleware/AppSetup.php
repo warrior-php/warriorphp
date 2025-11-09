@@ -79,13 +79,13 @@ class AppSetup implements MiddlewareInterface
         defined('VERSION') or define('VERSION', self::$version);
         defined('STATUS_CODE') or define('STATUS_CODE', [
             // 错误码定义
-            0   => 'unknown',
-            200 => 'success',
-            202 => 'success',
-            204 => 'success',
-            302 => 'redirect',
-            401 => 'unauthorized',
-            403 => 'forbidden'
+            0   => 'key2',
+            200 => 'key3',
+            202 => 'key3',
+            204 => 'key3',
+            302 => 'key4',
+            401 => 'key5',
+            403 => 'key6'
         ]);
     }
 }

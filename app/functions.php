@@ -196,10 +196,10 @@ if (!function_exists('getAvailableTranslations')) {
             if (is_dir($localePath) && is_file($messagesFile)) {
                 try {
                     $messages = include $messagesFile;
-                    if (is_array($messages) && isset($messages['language'])) {
+                    if (is_array($messages) && isset($messages['key1'])) {
                         $languages[] = [
                             'locale'  => $dir,
-                            'name'    => $messages['language'],
+                            'name'    => $messages['key1'],
                             'current' => strtolower($dir) === $currentLang,
                         ];
                     }
