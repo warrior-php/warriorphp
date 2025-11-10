@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App;
 
-use App\Middleware\AccessControl;
 use App\Route as RouteAttr;
 use ReflectionClass;
 use ReflectionMethod;

@@ -48,6 +48,7 @@ class Index extends Common
             $this->admin->login($params);
             return result(302, trans('key27'), ['url' => url('admin.index')]);
         }
+
         return view('admin/login');
     }
 
