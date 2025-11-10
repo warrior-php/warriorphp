@@ -19,4 +19,61 @@
             $(options.dom).val(str)
         })
     };
+
+    /**
+     * 点击URL请求
+     * @param options
+     * @param callback
+     */
+    $.fn.actUrl = function (options, callback) {
+        options = $.extend({confirm: true}, options);
+        $(this).click(function () {
+            options.follow = this;
+            $(this).requestUrl(options, callback);
+            return false;
+        })
+    };
+
+    /**
+     * requestUrl
+     * @param options
+     * @param callback
+     * @returns {boolean}
+     */
+    $.fn.requestUrl = function (options, callback) {
+        if ("disabled" === $(this).attr("disabled")) {
+            return false;
+        }
+        $(this).attr("disabled", "disabled");
+        options = $.extend({confirm: true, post: false, param: {}, content: 'Confirm action', text: 'Click Confirm to perform this action'}, options);
+        let uri = options.hasOwnProperty('uri') ? options.uri : (!!$(this).attr("url") ? $(this).attr("url") : $(this).attr("href"));
+        if (uri === undefined) {
+            $(this).removeAttr("disabled");
+            toastr.error('The requested URL could not be found.');
+            return false;
+        }
+        // 返回结果处理
+        let returnfun = (rel) => {
+            if (options.delete && rel.code === 204) {
+                $(this).parents("tr").remove();
+                $(this).parent().remove();
+            }
+            "function" == typeof callback && callback(rel);
+        }
+        // 确认还是直接执行
+        options.end = () => {
+            $(this).removeAttr("disabled")
+        }
+        if (options.confirm) {
+            options.yes = (index) => {
+                layer.close(index);
+                options.post ? http.post(uri, options.param, returnfun) : http.get(uri, options.param, returnfun)
+            }
+            // 显示确认弹窗
+            console.log(111);
+        } else {
+            options.post ? http.post(uri, options.param, returnfun) : http.get(uri, options.param, returnfun)
+        }
+        return false;
+    };
 })(jQuery);
