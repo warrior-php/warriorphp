@@ -10,12 +10,10 @@ Do.add('bootstrap', {path: parentPath + 'libs/bootstrap/dist/js/bootstrap.bundle
 Do.add('theme', {path: currentPath + 'theme/theme.js', type: 'js'});
 Do.add('app.init', {path: currentPath + 'theme/app.init.js', type: 'js'});
 Do.add('app.min', {path: currentPath + 'theme/app.min.js', type: 'js', requires: ['theme', 'app.init']});
-Do.add('toastr-init', {path: currentPath + 'plugins/toastr-init.js', type: 'js'});
-Do.add('jquery.sessionTimeout.min', {path: currentPath + 'extra-libs/jquery-sessiontimeout/jquery.sessionTimeout.min.js', type: 'js'});
-Do.add('session-timeout-init', {path: currentPath + 'extra-libs/jquery-sessiontimeout/session-timeout-init.js', type: 'js', requires: ['jquery.sessionTimeout.min']});
+Do.add('toastr', {path: currentPath + 'plugins/toastr-init.js', type: 'js'});
 
 // 基础
-Do.add('base', {path: currentPath + 'common.js', type: 'js', requires: ['bootstrap', 'app.min', 'http', 'toastr-init', 'session-timeout-init']});
+Do.add('base', {path: currentPath + 'common.js', type: 'js', requires: ['bootstrap', 'app.min', 'http', 'toastr']});
 
 // 请求
 Do.add('request', {path: currentPath + 'http/http.min.js', type: 'js',});

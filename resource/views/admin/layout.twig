@@ -273,7 +273,14 @@
 {% block js %}
     <script type="text/javascript">
         Do('base', () => {
-            $('#LogOut').actUrl({delete:true});
+            // 退出登录
+            $('#LogOut').actUrl({}, (rel) => {
+                toastr.success(rel.msg);
+                setTimeout(function () {
+                    if (rel.hasOwnProperty('url')) window.location.replace(rel.url);
+                    else window.location.reload();
+                }, 1000);
+            });
         });
     </script>
 {% endblock %}
