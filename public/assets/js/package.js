@@ -20,8 +20,8 @@ Do.add('request', {path: currentPath + 'http/http.min.js', type: 'js',});
 Do.add('http', {path: currentPath + 'http/request.js', type: 'js', requires: ['request']});
 // 表单
 Do.add('validation', {path: currentPath + 'extra-libs/jqbootstrapvalidation/validation.js', type: 'js'});
-Do.add('custom-validation-init', {path: currentPath + 'forms/custom-validation-init.js', type: 'js', requires: ['validation']});
+Do.add('custom-validation', {path: currentPath + 'forms/custom-validation-init.js', type: 'js', requires: ['validation']});
 Do.add('jquery.form', {path: currentPath + 'forms/jquery.form.js', type: 'js'});
-Do.add('form', {path: currentPath + 'forms/form.js', type: 'js', requires: ['validation', 'custom-validation-init', 'jquery.form']});
+Do.add('form', {path: currentPath + 'forms/form.js', type: 'js', requires: ['validation', 'custom-validation', 'jquery.form']});
 // 仪表盘
 Do.add('dashboard', {path: currentPath + 'dashboards/dashboard.js', type: 'js',});

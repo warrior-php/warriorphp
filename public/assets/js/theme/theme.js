@@ -1,13 +1,14 @@
+/* global bootstrap */
 (function () {
     "use strict";
 
     // 如果文档还没加载完成，等它加载完
     if (document.readyState === 'loading') {
         document.addEventListener("DOMContentLoaded", () => {
-            setTimeout(initTheme, 300);
+            setTimeout(initTheme, 500);
         });
     } else {
-        setTimeout(initTheme, 300);
+        setTimeout(initTheme, 500);
     }
 
     function initTheme() {
