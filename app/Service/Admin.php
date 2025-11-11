@@ -49,6 +49,7 @@ class Admin extends Authorize
         // 仅保存必要字段到 session
         session()->set('admin', [
             'id'       => $admin->id,
+            'username' => $admin->username,
             'mobile'   => $admin->mobile,
             'email'    => $admin->email,
             'nickname' => $admin->nickname,

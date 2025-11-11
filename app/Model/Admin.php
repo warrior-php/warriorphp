@@ -6,6 +6,7 @@ namespace App\Model;
 use support\Model;
 
 /**
+ * 管理员表
  * @property integer $id             ID(主键)
  * @property string  $username       用户名
  * @property string  $password       密码
