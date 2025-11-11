@@ -61,10 +61,13 @@ class Common
         $postData = $request->post();
         $lang = $postData['lang'] ?? '';
         $check = normalizeLang($lang);
+
         if (!$check['supported']) {
             return result(400, 'Unsupported language');
         }
+
         session()->set('lang', $check['lang']);
+
         return result(200, 'Language set successfully', ['lang' => $check['lang']]);
     }
 
@@ -83,6 +86,7 @@ class Common
         $captcha->build(142, 37);
         $request->session()->set($type, strtolower($captcha->getPhrase()));
         $img_content = $captcha->get();
+
         return response($img_content, 200, ['Content-Type' => 'image/jpeg']);
     }
 
