@@ -1,0 +1,10 @@
+{% extends 'admin/layout.twig' %}
+
+{% block js %}
+    {{ parent() }}
+    <script type="text/javascript">
+        Do('dashboard', () => {
+
+        });
+    </script>
+{% endblock %}

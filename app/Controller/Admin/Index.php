@@ -29,6 +29,16 @@ class Index extends Common
     }
 
     /**
+     * 管理员资料
+     * @return Response
+     */
+    #[Route(path: "/admin/profile", methods: ['GET'], permission: 'admin.profile')]
+    public function profile(): Response
+    {
+        return view('admin/profile');
+    }
+
+    /**
      * @param Request $request
      *
      * @return Response
