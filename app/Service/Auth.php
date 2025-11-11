@@ -81,17 +81,21 @@ class Auth
     {
         self::refreshSession($key);
         $account = session($key);
+
         if (!$account) {
             return null;
         }
+
         // 返回完整数据
         if ($fields === null) {
             return $account;
         }
+
         // 返回多个字段
         if (is_array($fields)) {
             return array_map(fn($field) => $account[$field] ?? null, $fields);
         }
+
         // 返回单个字段
         return $account[$fields] ?? null;
     }
