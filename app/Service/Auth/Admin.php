@@ -87,7 +87,7 @@ class Admin extends AbstractAuth
             return null;
         }
 
-        $decoded = DataCipher::encryptDecrypt($encryptedData, $this->sessionKey);
+        $decoded = DataCipher::decrypt($encryptedData, $this->sessionKey);
         return json_decode($decoded, true);
     }
 

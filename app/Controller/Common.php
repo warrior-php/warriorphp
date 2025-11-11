@@ -17,13 +17,6 @@ use Webman\Captcha\PhraseBuilder;
 class Common
 {
     /**
-     * AuthService
-     * @var AuthService
-     */
-    #[Inject]
-    protected AuthService $auth;
-
-    /**
      * 无需鉴权的操作列表
      *
      * 用户虽然需要登录，但不必验证具体权限的操作列表。

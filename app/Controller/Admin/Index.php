@@ -37,8 +37,7 @@ class Index extends Common
     #[Route(path: "/admin/login", methods: ['GET', 'POST'])]
     public function login(Request $request): Response
     {
-        // 判断是否登录
-        if ($this->auth->getCurrentAccount()) {
+        if (session('admin')) {
             return redirect(url('admin.index'));
         }
 
@@ -63,7 +62,7 @@ class Index extends Common
     #[Route(path: "/admin/logout", methods: ['GET'])]
     public function logout(Request $request): Response
     {
-        $request->session()->delete('admin');
+        $this->admin->logout();
         return result(302, trans('key27'), ['url' => url('admin.login')]);
     }
 }
