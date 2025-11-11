@@ -17,6 +17,18 @@ use support\exception\BusinessException;
 class Authorize
 {
     /**
+     * 最大登录尝试次数
+     * @var int
+     */
+    protected int $maxAttempts = 5;
+
+    /**
+     * 登录失败封禁时间（秒）
+     * @var int
+     */
+    protected int $blockTime = 300;
+
+    /**
      * @param string $controller
      * @param string $action
      * @param int    $code

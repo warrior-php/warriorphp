@@ -9,20 +9,8 @@ use support\exception\BusinessException;
 use support\Log;
 use support\Redis;
 
-class Admin
+class Admin extends Authorize
 {
-    /**
-     * 最大登录尝试次数
-     * @var int
-     */
-    protected int $maxAttempts = 5;
-
-    /**
-     * 登录失败封禁时间（秒）
-     * @var int
-     */
-    protected int $blockTime = 300;
-
     /**
      * 管理员登录
      *
