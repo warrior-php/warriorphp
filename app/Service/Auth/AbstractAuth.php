@@ -5,7 +5,7 @@ namespace App\Service\Auth;
 use Exception;
 use extend\Utils\DataCipher;
 
-abstract class AbstractAuthService implements AuthInterface
+abstract class AbstractAuth implements AuthInterface
 {
     /**
      * 会话加密密钥

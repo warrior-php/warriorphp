@@ -2,7 +2,7 @@
 
 namespace App\Service\Auth;
 
-class User extends AbstractAuthService
+class User extends AbstractAuth
 {
 
 }

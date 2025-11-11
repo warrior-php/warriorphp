@@ -10,7 +10,7 @@ use support\exception\BusinessException;
 use support\Log;
 use support\Redis;
 
-class Admin extends AbstractAuthService
+class Admin extends AbstractAuth
 {
     public function __construct()
     {
