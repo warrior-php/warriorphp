@@ -55,9 +55,11 @@ class Admin extends AbstractAuth
         // 仅保存必要字段到 session
         $sessionData = [
             'id'       => $admin->id,
+            'mobile'   => $admin->mobile,
             'email'    => $admin->email,
-            'name'     => $admin->name,
-            'login_at' => $admin->login_at,
+            'nickname' => $admin->nickname,
+            'login_ip' => $admin->login_ip,
+            'login_at' => $admin->login_at
         ];
         $encryptedAdminData = DataCipher::encryptDecrypt(json_encode($sessionData), $this->sessionKey);
         session()->set('admin', $encryptedAdminData);
