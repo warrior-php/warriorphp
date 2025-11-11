@@ -7,12 +7,12 @@ use Exception;
 use support\exception\BusinessException;
 
 /**
- * Class Authorize
+ * Class Access
  *
  * 登录服务类
  * 负责验证码校验、Redis登录限制、会话保存等逻辑。
  */
-class Authorize
+class Access
 {
     /**
      * @param string $controller

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Middleware;
 
-use App\Service\Auth\Authorize as AuthService;
+use App\Service\Auth\Access;
 use DI\Attribute\Inject;
 use Exception;
 use support\View;
@@ -14,10 +14,10 @@ use Webman\MiddlewareInterface;
 class AccessControl implements MiddlewareInterface
 {
     /**
-     * @var AuthService
+     * @var Access
      */
     #[Inject]
-    protected AuthService $auth;
+    protected Access $access;
 
     /**
      * @param Request  $request
@@ -35,7 +35,7 @@ class AccessControl implements MiddlewareInterface
         $url = '';
         $account = null;
 
-        if (!$this->auth::canAccess($controller, $code, $msg, $url, $account)) {
+        if (!$this->access::canAccess($controller, $code, $msg, $url, $account)) {
             if ($request->expectsJson()) {
                 $response = json(['code' => $code, 'msg' => $msg]);
             } else {
