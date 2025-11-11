@@ -11,7 +11,7 @@ class Index extends Common
     /**
      * @return Response
      */
-    #[Route(path: "/user/index", methods: ['GET'])]
+    #[Route(path: "/user/index", methods: ['GET'], permission: 'user.index')]
     public function index(): Response
     {
         return view('user/index');

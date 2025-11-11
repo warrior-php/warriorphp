@@ -59,7 +59,7 @@ class Index extends Common
      * @return Response
      * @throws Exception
      */
-    #[Route(path: "/admin/logout", methods: ['GET'])]
+    #[Route(path: "/admin/logout", methods: ['GET'], permission: 'admin.logout')]
     public function logout(Request $request): Response
     {
         $this->admin->logout();
