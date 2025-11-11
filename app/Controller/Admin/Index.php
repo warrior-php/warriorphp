@@ -5,7 +5,7 @@ namespace App\Controller\Admin;
 
 use App\Controller\Common;
 use App\Route;
-use App\Service\Admin as AdminService;
+use App\Service\Auth\Admin as AdminService;
 use DI\Attribute\Inject;
 use Exception;
 use support\Request;

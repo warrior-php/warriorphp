@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Service;
+namespace App\Service\Auth;
 
 use App\Model\Admin as AdminModel;
 use Exception;
@@ -10,31 +10,11 @@ use support\exception\BusinessException;
 use support\Log;
 use support\Redis;
 
-class Admin
+class Admin extends AbstractAuthService
 {
-    /**
-     * @var string 会话加密密钥
-     */
-    private string $sessionKey;
-
-    /**
-     * 最大登录尝试次数
-     * @var int
-     */
-    private int $maxAttempts = 5;
-
-    /**
-     * 登录失败封禁时间（秒）
-     * @var int
-     */
-    private int $blockTime = 300;
-
-    /**
-     * 构造函数
-     */
     public function __construct()
     {
-        $this->sessionKey = uuid(5, false, request()->host() . 'admin_session_key');
+        parent::__construct(uuid(5, false, request()->host() . 'admin_session_key'));
     }
 
     /**
@@ -79,9 +59,44 @@ class Admin
             'name'     => $admin->name,
             'login_at' => $admin->login_at,
         ];
-        $enAdmin = DataCipher::encryptDecrypt(json_encode($sessionData), $this->sessionKey);
-        session()->set('admin', $enAdmin);
+        $encryptedAdminData = DataCipher::encryptDecrypt(json_encode($sessionData), $this->sessionKey);
+        session()->set('admin', $encryptedAdminData);
         // 登录成功：重置失败计数
         Redis::del($attemptsKey);
+    }
+
+    /**
+     * 退出登录
+     * @return void
+     * @throws Exception
+     */
+    public function logout(): void
+    {
+        session()->delete('admin');
+    }
+
+    /**
+     * 获取用户信息
+     * @return array|null
+     * @throws Exception
+     */
+    public function getSessionData(): ?array
+    {
+        $encryptedData = session('admin');
+        if (!$encryptedData) {
+            return null;
+        }
+
+        $decoded = DataCipher::encryptDecrypt($encryptedData, $this->sessionKey);
+        return json_decode($decoded, true);
+    }
+
+    /**
+     * 刷新会话
+     * @return void
+     */
+    public function refreshSession(): void
+    {
+        // 根据需要实现，例如重新生成sessionKey或延长有效期
     }
 }

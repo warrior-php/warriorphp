@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Middleware;
 
-use App\Service\Auth as AuthService;
+use App\Service\Auth\Authorize as AuthService;
 use DI\Attribute\Inject;
 use Exception;
 use support\View;

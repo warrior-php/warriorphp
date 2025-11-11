@@ -1,18 +1,18 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Service;
+namespace App\Service\Auth;
 
 use Exception;
 use support\exception\BusinessException;
 
 /**
- * Class Auth
+ * Class Authorize
  *
  * 登录服务类
  * 负责验证码校验、Redis登录限制、会话保存等逻辑。
  */
-class Auth
+class Authorize
 {
     /**
      * @param string $controller
@@ -68,19 +68,24 @@ class Auth
      * @example
      * ```php
      * // 获取完整信息
-     * $admin = Auth::getCurrentAccount();
+     * $admin = Authorize::getCurrentAccount();
      *
      * // 获取单个字段
-     * $id = Auth::getCurrentAccount('id');
+     * $id = Authorize::getCurrentAccount('id');
      *
      * // 获取多个字段
-     * $info = Auth::getCurrentAccount(['id', 'username']);
+     * $info = Authorize::getCurrentAccount(['id', 'username']);
      * ```
      */
     public static function getCurrentAccount(null|array|string $fields = null, string $key = 'admin'): mixed
     {
         self::refreshSession($key);
         $account = session($key);
+//        $account = DataCipher::encryptDecrypt(json_encode(session($key)), Admin::$sessionKey);
+//        $admin = Code::de(Session::get($this->admin_session), $this->admin_key);
+//        if ($admin) {
+//            return json_decode($admin);
+//        }
 
         if (!$account) {
             return null;
