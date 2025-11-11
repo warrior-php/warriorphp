@@ -47,7 +47,7 @@ class Index extends Common
     #[Route(path: "/admin/login", methods: ['GET', 'POST'])]
     public function login(Request $request): Response
     {
-        if (session('admin')) {
+        if ($this->admin->getSessionData()) {
             return redirect(url('admin.index'));
         }
 
