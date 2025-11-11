@@ -9,8 +9,7 @@ use support\exception\BusinessException;
 /**
  * Class Access
  *
- * 登录服务类
- * 负责验证码校验、Redis登录限制、会话保存等逻辑。
+ * 权限服务类
  */
 class Access
 {
