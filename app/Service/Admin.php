@@ -1,21 +1,27 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Service\Auth;
+namespace App\Service;
 
 use App\Model\Admin as AdminModel;
 use Exception;
-use extend\Utils\DataCipher;
 use support\exception\BusinessException;
 use support\Log;
 use support\Redis;
 
-class Admin extends AbstractAuth
+class Admin
 {
-    public function __construct()
-    {
-        parent::__construct(uuid(5, false, request()->host() . 'admin_session_key'));
-    }
+    /**
+     * 最大登录尝试次数
+     * @var int
+     */
+    protected int $maxAttempts = 5;
+
+    /**
+     * 登录失败封禁时间（秒）
+     * @var int
+     */
+    protected int $blockTime = 300;
 
     /**
      * 管理员登录
@@ -53,16 +59,14 @@ class Admin extends AbstractAuth
         $admin->login_ip = $ip;
         $admin->save();
         // 仅保存必要字段到 session
-        $sessionData = [
+        session()->set('admin', [
             'id'       => $admin->id,
             'mobile'   => $admin->mobile,
             'email'    => $admin->email,
             'nickname' => $admin->nickname,
             'login_ip' => $admin->login_ip,
             'login_at' => $admin->login_at
-        ];
-        $encryptedAdminData = DataCipher::encryptDecrypt(json_encode($sessionData), $this->sessionKey);
-        session()->set('admin', $encryptedAdminData);
+        ]);
         // 登录成功：重置失败计数
         Redis::del($attemptsKey);
     }
@@ -89,8 +93,7 @@ class Admin extends AbstractAuth
             return null;
         }
 
-        $decoded = DataCipher::decrypt($encryptedData, $this->sessionKey);
-        return json_decode($decoded, true);
+        return json_decode($encryptedData, true);
     }
 
     /**

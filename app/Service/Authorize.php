@@ -1,20 +1,20 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Service\Auth;
+namespace App\Service;
 
+use App\Route as RouteAttr;
 use Exception;
 use ReflectionException;
 use ReflectionMethod;
-use App\Route as RouteAttr;
 use support\exception\BusinessException;
 
 /**
- * Class Access
+ * Class Authorize
  *
  * 权限服务类
  */
-class Access
+class Authorize
 {
     /**
      * @param string $controller
@@ -27,7 +27,7 @@ class Access
      * @return bool
      * @throws ReflectionException|Exception
      */
-    public static function canAccess(string $controller, string $action, int &$code = 0, string &$msg = '', string &$redirectUrl = '', &$account = null): bool
+    public static function access(string $controller, string $action, int &$code = 0, string &$msg = '', string &$redirectUrl = '', &$account = null): bool
     {
         // 无控制器信息说明是函数调用，函数不属于任何控制器，鉴权操作应该在函数内部完成。
         if (!$controller) {
