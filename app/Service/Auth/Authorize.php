@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Service;
+namespace App\Service\Auth;
 
 use Exception;
 use support\exception\BusinessException;
