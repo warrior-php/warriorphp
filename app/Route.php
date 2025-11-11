@@ -23,6 +23,12 @@ class Route
     public array $methods;
 
     /**
+     * 权限码
+     * @var string|null
+     */
+    public ?string $permission;
+
+    /**
      * @var string|null
      */
     public ?string $middleware;
@@ -32,10 +38,11 @@ class Route
      * @param array       $methods    请求方法
      * @param string|null $middleware 权限
      */
-    public function __construct(string $path, array $methods = ['ANY'], ?string $middleware = null)
+    public function __construct(string $path, array $methods = ['ANY'], ?string $permission = null, ?string $middleware = null)
     {
         $this->path = $path;
         $this->methods = $methods;
+        $this->permission = $permission;
         $this->middleware = $middleware;
     }
 }

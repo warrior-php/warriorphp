@@ -29,13 +29,14 @@ class AccessControl implements MiddlewareInterface
     public function process(Request $request, callable $handler): Response
     {
         $controller = $request->controller;
+        $action = $request->action;
 
         $code = 0;
         $msg = '';
         $url = '';
         $account = null;
 
-        if (!$this->access::canAccess($controller, $code, $msg, $url, $account)) {
+        if (!$this->access::canAccess($controller, $action, $code, $msg, $url, $account)) {
             if ($request->expectsJson()) {
                 $response = json(['code' => $code, 'msg' => $msg]);
             } else {

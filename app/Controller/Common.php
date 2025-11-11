@@ -15,19 +15,6 @@ use Webman\Captcha\PhraseBuilder;
 class Common
 {
     /**
-     * 无需鉴权的操作列表
-     *
-     * 用户虽然需要登录，但不必验证具体权限的操作列表。
-     * 通常用于首页仪表盘、公告页等不敏感模块。
-     *
-     * 示例：
-     * - dashboard：系统仪表盘页面
-     *
-     * @var string[]
-     */
-    protected array $noNeedAuth = ['logout'];
-
-    /**
      * 通用验证方法
      *
      * @param string $ruleClass 类名（可传简写：User 或完整命名空间）

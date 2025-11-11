@@ -22,7 +22,7 @@ class Index extends Common
     /**
      * @return Response
      */
-    #[Route(path: "/admin/index", methods: ['GET'], middleware: 'AccessControl')]
+    #[Route(path: "/admin/index", methods: ['GET'], permission: 'admin.index')]
     public function index(): Response
     {
         return view('admin/index');
