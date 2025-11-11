@@ -20,6 +20,8 @@ class AccessControl implements MiddlewareInterface
     protected Authorize $authorize;
 
     /**
+     * 对外提供的鉴权中间件
+     *
      * @param Request  $request
      * @param callable $handler
      *
