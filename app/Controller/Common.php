@@ -4,9 +4,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Route;
-use App\Service\Auth\Authorize as AuthService;
 use App\Validator;
-use DI\Attribute\Inject;
 use Exception;
 use support\exception\BusinessException;
 use support\Request;
