@@ -54,7 +54,7 @@ class Access
                 $code = 401;
                 switch ($sessionKey) {
                     case 'admin';
-                        $url = url('admin.login');
+                        $url = url('admin.account.login');
                         break;
                     case 'api';
                         throw new BusinessException(message: trans('key28'));
