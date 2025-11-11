@@ -21,13 +21,13 @@ class Access
      * @param string $action
      * @param int    $code
      * @param string $msg
-     * @param string $url
+     * @param string $redirectUrl
      * @param null   $account
      *
      * @return bool
      * @throws ReflectionException|Exception
      */
-    public static function canAccess(string $controller, string $action, int &$code = 0, string &$msg = '', string &$url = '', &$account = null): bool
+    public static function canAccess(string $controller, string $action, int &$code = 0, string &$msg = '', string &$redirectUrl = '', &$account = null): bool
     {
         // 无控制器信息说明是函数调用，函数不属于任何控制器，鉴权操作应该在函数内部完成。
         if (!$controller) {
@@ -54,12 +54,12 @@ class Access
                 $code = 401;
                 switch ($sessionKey) {
                     case 'admin';
-                        $url = url('admin.account.login');
+                        $redirectUrl = url('admin.account.login');
                         break;
                     case 'api';
                         throw new BusinessException(message: trans('key28'));
                     default:
-                        $url = url('user.login');
+                        $redirectUrl = url('user.login');
                 }
                 return false;
             }
