@@ -70,27 +70,4 @@ class Admin extends Authorize
         session()->delete('admin');
     }
 
-    /**
-     * 获取用户信息
-     * @return array|null
-     * @throws Exception
-     */
-    public function getSessionData(): ?array
-    {
-        $encryptedData = session('admin');
-        if (!$encryptedData) {
-            return null;
-        }
-
-        return json_decode($encryptedData, true);
-    }
-
-    /**
-     * 刷新会话
-     * @return void
-     */
-    public function refreshSession(): void
-    {
-        // 根据需要实现，例如重新生成sessionKey或延长有效期
-    }
 }

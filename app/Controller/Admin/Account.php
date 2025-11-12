@@ -37,7 +37,7 @@ class Account extends Common
     #[Route(path: "/admin/account/login", methods: ['GET', 'POST'])]
     public function login(Request $request): Response
     {
-        if ($this->admin->getSessionData()) {
+        if ($this->admin::getSessionData('admin')) {
             return redirect(url('admin.index'));
         }
 

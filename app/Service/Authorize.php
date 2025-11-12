@@ -58,26 +58,51 @@ class Authorize
                 str_contains($controller, 'Api') => 'api',
                 default => 'user',
             };
+            $account = self::getSessionData($sessionKey); // 获取登录信息
+            switch ($sessionKey) {
+                case 'user';
+                    $redirectUrl = url('user.login');
+                    break;
+                case 'admin';
+                    $redirectUrl = url('admin.account.login');
+//                    $roles = $account['roles']; // 当前管理员无角色
+                    break;
+                default:
+                    throw new BusinessException(message: trans('key28'));
 
-            // 获取登录信息
-            $account = session($sessionKey);
+            }
+
             if (!$account) {
                 $msg = trans('key5');
                 $code = 401;
-                switch ($sessionKey) {
-                    case 'admin';
-                        $redirectUrl = url('admin.account.login');
-                        break;
-                    case 'api';
-                        throw new BusinessException(message: trans('key28'));
-                    default:
-                        $redirectUrl = url('user.login');
-                }
                 return false;
             }
         }
 
         return true;
+    }
+
+    /**
+     * 获取用户 Session 数据
+     *
+     * @param string $sessionKey
+     *
+     * @return array|null
+     * @throws Exception
+     */
+    public static function getSessionData(string $sessionKey): ?array
+    {
+        return session($sessionKey) ?: null;
+    }
+
+
+    /**
+     * 刷新会话
+     * @return void
+     */
+    public function refreshSession(): void
+    {
+        // 根据需要实现，例如重新生成sessionKey或延长有效期
     }
 
 }
