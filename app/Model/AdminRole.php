@@ -2,7 +2,7 @@
 
 namespace App\Model;
 
-use support\Model;
+use App\BaseModel;
 
 /**
  * 角色表
@@ -10,7 +10,7 @@ use support\Model;
  * @property integer $role_id            角色id
  * @property integer $admin_id           管理员id
  */
-class AdminRole extends Model
+class AdminRole extends BaseModel
 {
     /**
      * The table associated with the model.

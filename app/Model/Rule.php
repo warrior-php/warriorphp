@@ -2,7 +2,7 @@
 
 namespace App\Model;
 
-use support\Model;
+use App\BaseModel;
 
 /**
  * 权限规则
@@ -17,7 +17,7 @@ use support\Model;
  * @property string  $created_at     创建时间
  * @property string  $updated_at     更新时间
  */
-class Rule extends Model
+class Rule extends BaseModel
 {
     /**
      * 与模型关联的表名

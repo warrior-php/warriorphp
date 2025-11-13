@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Model;
 
-use support\Model;
+use App\BaseModel;
 
 /**
  * 管理员表
@@ -21,7 +21,7 @@ use support\Model;
  * @property string  $updated_at     更新时间
  * @property string  $deleted_at     删除时间
  */
-class Admin extends Model
+class Admin extends BaseModel
 {
     /**
      * 与模型关联的表名

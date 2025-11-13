@@ -2,11 +2,11 @@
 
 namespace App\Controller\User;
 
-use App\Controller\Common;
 use App\Core\Route;
+use App\WebController;
 use support\Response;
 
-class Index extends Common
+class Index extends WebController
 {
     /**
      * @return Response

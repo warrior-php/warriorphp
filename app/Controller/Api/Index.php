@@ -2,11 +2,11 @@
 
 namespace App\Controller\Api;
 
-use App\Controller\Common;
+use App\ApiController;
 use App\Core\Route;
 use support\Response;
 
-class Index extends Common
+class Index extends ApiController
 {
     /**
      * @return Response

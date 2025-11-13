@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Model;
 
-use support\Model;
+use App\BaseModel;
 
 /**
  * 角色表
@@ -14,7 +14,7 @@ use support\Model;
  * @property string  $created_at      创建时间
  * @property string  $updated_at      更新时间
  */
-class Role extends Model
+class Role extends BaseModel
 {
     /**
      * The table associated with the model.

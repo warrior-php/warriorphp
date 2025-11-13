@@ -1,14 +1,13 @@
 <?php
 declare(strict_types=1);
 
-/**
- * Here is functions.
- */
-
 use Godruoyi\Snowflake\Snowflake;
 use Ramsey\Uuid\Uuid;
 use support\Response;
 
+/**
+ * Here is functions.
+ */
 if (!function_exists('views_path')) {
     /**
      * views path

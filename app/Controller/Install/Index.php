@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace App\Controller\Install;
 
-use App\Controller\Common;
 use App\Core\Route;
+use App\WebController;
 
-class Index extends Common
+class Index extends WebController
 {
     /**
      * @return string

@@ -1,7 +1,6 @@
 <?php
-declare(strict_types=1);
 
-namespace App\Controller;
+namespace App;
 
 use App\Core\Route;
 use App\Core\Validator;
@@ -12,7 +11,7 @@ use support\Response;
 use Webman\Captcha\CaptchaBuilder;
 use Webman\Captcha\PhraseBuilder;
 
-class Common
+class BaseController
 {
     /**
      * 通用验证方法
@@ -89,5 +88,4 @@ class Common
 
         return response($img_content, 200, ['Content-Type' => 'image/jpeg']);
     }
-
 }

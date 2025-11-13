@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin;
 
-use App\Controller\Common;
+use App\AdminController;
 use App\Core\Route;
 use App\Service\Admin\LoginService;
 use DI\Attribute\Inject;
@@ -10,7 +10,7 @@ use Exception;
 use support\Request;
 use support\Response;
 
-class Account extends Common
+class Account extends AdminController
 {
     /**
      * @var LoginService
