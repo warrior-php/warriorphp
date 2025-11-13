@@ -2,7 +2,7 @@
 
 namespace App\Service\Admin;
 
-use App\Model\AdminModel;
+use App\Model\Admin;
 use Exception;
 use support\exception\BusinessException;
 use support\Log;
@@ -45,7 +45,7 @@ class LoginService
         if ($captcha !== $sessionCaptcha) {
             throw new BusinessException(message: trans('key8'));
         }
-        $admin = AdminModel::where('username', $params['username'])->first();
+        $admin = Admin::where('username', $params['username'])->first();
         // 密码校验失败：记录尝试次数
         if (!$admin || !password_verify($params['password'], $admin->password)) {
             $attempts = Redis::incr($attemptsKey);

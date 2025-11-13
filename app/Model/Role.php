@@ -12,7 +12,7 @@ namespace App\Model;
  * @property string  $created_at      创建时间
  * @property string  $updated_at      更新时间
  */
-class RoleModel extends BaseModel
+class Role extends BaseModel
 {
     /**
      * The table associated with the model.

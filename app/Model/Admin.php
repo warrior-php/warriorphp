@@ -19,7 +19,7 @@ namespace App\Model;
  * @property string  $updated_at     更新时间
  * @property string  $deleted_at     删除时间
  */
-class AdminModel extends BaseModel
+class Admin extends BaseModel
 {
     /**
      * 与模型关联的表名

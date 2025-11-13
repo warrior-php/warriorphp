@@ -5,10 +5,10 @@ namespace App\Middleware;
 
 use App\Core\Middleware;
 use App\Core\Route as RouteAttr;
-use App\Model\AdminModel as AdminModel;
-use App\Model\AdminRoleModel;
-use App\Model\RoleModel;
-use App\Model\RuleModel;
+use App\Model\Admin as AdminModel;
+use App\Model\AdminRole as AdminRoleModel;
+use App\Model\Role as RoleModel;
+use App\Model\Rule as RuleModel;
 use Exception;
 use ReflectionException;
 use ReflectionMethod;
