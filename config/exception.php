@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-use App\Core\Handler;
+use App\Exception\Handler;
 
 return [
     '@' => Handler::class,
