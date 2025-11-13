@@ -2,7 +2,7 @@
 
 namespace App\Middleware;
 
-class WebMiddleware extends InitApp
+class WebMiddleware extends AppMiddleware
 {
 
 }

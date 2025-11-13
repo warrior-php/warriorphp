@@ -10,7 +10,7 @@ use Webman\Http\Request;
 use Webman\Http\Response;
 use Webman\MiddlewareInterface;
 
-class InitApp implements MiddlewareInterface
+class AppMiddleware implements MiddlewareInterface
 {
     /**
      * 系统版本

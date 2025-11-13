@@ -22,7 +22,7 @@ class Account extends AdminController
      * 管理员
      * @return Response
      */
-    #[Route(path: "/admin/account/index", methods: ['GET'], middleware: 'AdminMiddleware', permission: 'admin.account.index')]
+    #[Route(path: "/admin/account/index", methods: ['GET'], permission: 'admin.account.index')]
     public function profile(): Response
     {
         return view('admin/account/index');
@@ -34,7 +34,7 @@ class Account extends AdminController
      * @return Response
      * @throws Exception
      */
-    #[Route(path: "/admin/account/login", methods: ['GET', 'POST'], middleware: 'AdminMiddleware')]
+    #[Route(path: "/admin/account/login", methods: ['GET', 'POST'])]
     public function login(Request $request): Response
     {
         if (session('admin')) {
@@ -57,7 +57,7 @@ class Account extends AdminController
      * @return Response
      * @throws Exception
      */
-    #[Route(path: "/admin/account/logout", methods: ['GET'], middleware: 'AdminMiddleware', permission: 'admin.logout')]
+    #[Route(path: "/admin/account/logout", methods: ['GET'], permission: 'admin.logout')]
     public function logout(): Response
     {
         $this->loginService->logout();

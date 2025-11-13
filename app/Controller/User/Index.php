@@ -11,7 +11,7 @@ class Index extends WebController
     /**
      * @return Response
      */
-    #[Route(path: "/user/index", methods: ['GET'], middleware: 'WebMiddleware', permission: 'user.index')]
+    #[Route(path: "/user/index", methods: ['GET'], permission: 'user.index')]
     public function index(): Response
     {
         return view('user/index');

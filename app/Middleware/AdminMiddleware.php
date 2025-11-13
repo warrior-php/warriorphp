@@ -14,7 +14,7 @@ use ReflectionMethod;
 use Webman\Http\Request;
 use Webman\Http\Response;
 
-class AdminMiddleware extends InitApp
+class AdminMiddleware extends AppMiddleware
 {
     /**
      * 处理请求
