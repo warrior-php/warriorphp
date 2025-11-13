@@ -97,7 +97,7 @@ class RouteLoader
                             $route = $httpMethod === 'ANY' ? Route::any($meta->path, $callback) : Route::add($httpMethod, $meta->path, $callback);
                             $route->name($routeName);
                             if ($meta->middleware) {
-                                $fullClass = "\\App\\Middleware\\$meta->middleware";
+                                $fullClass = "\\App\\Middleware\\$meta->middleware"; // 目录定死
                                 $route->middleware([$fullClass]);
                             }
                             $route->middleware([AccessControl::class]);

@@ -9,7 +9,7 @@ use support\exception\BusinessException;
 use support\Log;
 use support\Redis;
 
-class Admin extends Authorize
+class Admin extends AdminAuthorize
 {
     /**
      * 管理员登录

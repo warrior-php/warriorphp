@@ -7,14 +7,13 @@ use App\Route as RouteAttr;
 use Exception;
 use ReflectionException;
 use ReflectionMethod;
-use support\exception\BusinessException;
 
 /**
- * Class Authorize
+ * Class AdminAuthorize
  *
  * 权限服务类
  */
-class Authorize
+class AdminAuthorize
 {
     /**
      * 最大登录尝试次数
@@ -53,30 +52,14 @@ class Authorize
         $permissionCode = $routeAttr->permission ?? null;
         // 执行权限验证逻辑
         if ($permissionCode) {
-            $sessionKey = match (true) {
-                str_contains($controller, 'Admin') => 'admin',
-                str_contains($controller, 'Api') => 'api',
-                default => 'user',
-            };
-            $account = self::getSessionData($sessionKey); // 获取登录信息
-            switch ($sessionKey) {
-                case 'user';
-                    $redirectUrl = url('user.login');
-                    break;
-                case 'admin';
-                    $redirectUrl = url('admin.account.login');
-//                    $roles = $account['roles']; // 当前管理员无角色
-                    break;
-                default:
-                    throw new BusinessException(message: trans('key28'));
-
-            }
-
+            $account = self::getSessionData('admin');
             if (!$account) {
                 $msg = trans('key5');
                 $code = 401;
+                $redirectUrl = url('admin.account.login');
                 return false;
             }
+            $roles = '';
         }
 
         return true;
@@ -98,11 +81,28 @@ class Authorize
 
     /**
      * 刷新会话
-     * @return void
+     *
+     * @param string $sessionKey
+     * @param bool   $force
+     *
+     * @return void|null
+     * @throws Exception
      */
-    public function refreshSession(): void
+    public function refreshSession(string $sessionKey, bool $force = false)
     {
-        // 根据需要实现，例如重新生成sessionKey或延长有效期
+        $sessionData = session($sessionKey);
+        if (!$sessionData) {
+            return null;
+        }
+        $id = $sessionData['id'];
+        $time_now = time();
+        // session在2秒内不刷新
+        $session_ttl = 2;
+        $session_last_update_time = session('admin.session_last_update_time', 0);
+        if (!$force && $time_now - $session_last_update_time < $session_ttl) {
+            return null;
+        }
+        $session = request()->session();
     }
 
 }

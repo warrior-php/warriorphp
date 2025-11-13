@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Middleware;
 
-use App\Service\Authorize;
+use App\Service\AdminAuthorize;
 use DI\Attribute\Inject;
 use Exception;
 use support\View;
@@ -14,10 +14,10 @@ use Webman\MiddlewareInterface;
 class AccessControl implements MiddlewareInterface
 {
     /**
-     * @var Authorize
+     * @var AdminAuthorize
      */
     #[Inject]
-    protected Authorize $authorize;
+    protected AdminAuthorize $authorize;
 
     /**
      * 对外提供的鉴权中间件
