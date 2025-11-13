@@ -8,7 +8,7 @@ namespace App\Model;
  * @property integer $role_id            角色id
  * @property integer $admin_id           管理员id
  */
-class AdminRole extends BaseModel
+class AdminRoleModel extends BaseModel
 {
     /**
      * The table associated with the model.
