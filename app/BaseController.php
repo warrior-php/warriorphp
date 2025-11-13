@@ -5,6 +5,9 @@ namespace App;
 use App\Core\Validator;
 use support\exception\BusinessException;
 
+/**
+ * 注意：此控制注解路由无效
+ */
 class BaseController
 {
     /**
