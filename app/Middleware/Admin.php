@@ -3,8 +3,9 @@ declare(strict_types=1);
 
 namespace App\Middleware;
 
-use App\Model\AdminModel as AdminModel;
+use App\Core\Middleware;
 use App\Core\Route as RouteAttr;
+use App\Model\AdminModel as AdminModel;
 use App\Model\AdminRoleModel;
 use App\Model\RoleModel;
 use App\Model\RuleModel;
@@ -14,7 +15,7 @@ use ReflectionMethod;
 use Webman\Http\Request;
 use Webman\Http\Response;
 
-class AdminMiddleware extends AppMiddleware
+class Admin extends Middleware
 {
     /**
      * 处理请求

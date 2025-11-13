@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Middleware;
+namespace App\Core;
 
 use Exception;
 use support\exception\BusinessException;
@@ -10,7 +10,7 @@ use Webman\Http\Request;
 use Webman\Http\Response;
 use Webman\MiddlewareInterface;
 
-class AppMiddleware implements MiddlewareInterface
+class Middleware implements MiddlewareInterface
 {
     /**
      * 系统版本

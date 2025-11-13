@@ -2,15 +2,15 @@
 
 namespace App;
 
+use App\Core\Middleware;
 use App\Core\Validator;
-use App\Middleware\AppMiddleware;
-use support\annotation\Middleware;
+use support\annotation\Middleware as AnnotationMiddleware;
 use support\exception\BusinessException;
 
 /**
  * 注意：此控制注解路由无效
  */
-#[Middleware(AppMiddleware::class)]
+#[AnnotationMiddleware(Middleware::class)]
 abstract class BaseController
 {
     /**

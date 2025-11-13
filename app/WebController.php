@@ -2,10 +2,10 @@
 
 namespace App;
 
-use App\Middleware\WebMiddleware;
+use App\Middleware\Web;
 use support\annotation\Middleware;
 
-#[Middleware(WebMiddleware::class)]
+#[Middleware(Web::class)]
 class WebController extends BaseController
 {
 

@@ -2,10 +2,10 @@
 
 namespace App;
 
-use App\Middleware\ApiMiddleware;
+use App\Middleware\Api;
 use support\annotation\Middleware;
 
-#[Middleware(ApiMiddleware::class)]
+#[Middleware(Api::class)]
 class ApiController extends BaseController
 {
 

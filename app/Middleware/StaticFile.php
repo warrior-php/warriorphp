@@ -11,7 +11,7 @@ use Webman\MiddlewareInterface;
  * Class StaticFile
  * @package App\Middleware
  */
-class StaticFileMiddleware implements MiddlewareInterface
+class StaticFile implements MiddlewareInterface
 {
     public function process(Request $request, callable $handler): Response
     {

@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-use App\Middleware\StaticFileMiddleware;
+use App\Middleware\StaticFile;
 
 return [
     'enable'     => true,
     'middleware' => [
-        StaticFileMiddleware::class,
+        StaticFile::class,
     ],
 ];
