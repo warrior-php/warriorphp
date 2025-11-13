@@ -17,7 +17,7 @@ use Webman\Http\Response;
 class Admin extends InitApp
 {
     /**
-     * 对外提供的鉴权中间件
+     * 处理请求
      *
      * @param Request  $request
      * @param callable $handler
@@ -34,22 +34,19 @@ class Admin extends InitApp
         $code = 0;
         $msg = '';
 
+        // 执行权限验证
         if (!self::authorize($controller, $action, $code, $msg)) {
-            if ($request->expectsJson()) {
-                $response = json(['code' => $code, 'msg' => $msg, 'data' => []]);
-            } else {
-                if ($code === 401) {
-                    return redirect(url('admin.account.login'));
-                } else {
-                    $response = view('error', [], 'public')->withStatus($code);
-                }
-            }
-        } else {
-            $response = $request->method() == 'OPTIONS' ? response() : $response;
+            // JSON 请求
+            if ($request->expectsJson()) return json(['code' => $code, 'msg' => $msg, 'data' => []]);
+            // 未登录
+            if ($code === 401) return redirect(url('admin.account.login'));
+            // 权限不足
+            return view('error', [], 'public')->withStatus($code);
         }
-
-        return $response;
+        // OPTIONS 请求直接返回空响应
+        return $request->method() === 'OPTIONS' ? response() : $response;
     }
+
 
     /**
      * 权限
@@ -64,9 +61,7 @@ class Admin extends InitApp
      */
     protected static function authorize(string $controller, string $action, int &$code = 0, string &$msg = ''): bool
     {
-        if (!$controller) {
-            return true;
-        }
+        if (!$controller) return true;
 
         $ref = new ReflectionMethod($controller, $action);
         $attributes = $ref->getAttributes(RouteAttr::class);
@@ -76,41 +71,25 @@ class Admin extends InitApp
         self::refreshSession();
         $admin = session('admin');
         if ($permissionCode) {
-            if (!$admin) {
-                // 获取登录信息
-                $msg = trans('key5');
-                $code = 401;
-                return false;
-            }
+            $msg = trans('key5');
+            if (!$admin && $code = 401) return false;
 
             // 验证权限
             $roles = $admin['roles'];
             // 当前管理员无角色
-            if (!$roles) {
-                $msg = '无权限';
-                $code = 402;
-                return false;
-            }
+            if (!$roles && $code = 402) return false;
 
             $rules = Role::whereIn('id', $roles)->pluck('rules');
             $rule_ids = [];
             foreach ($rules as $rule_string) {
-                if (!$rule_string) {
-                    continue;
-                }
+                if (!$rule_string) continue;
                 $rule_ids = array_merge($rule_ids, explode(',', $rule_string));
             }
             // 角色没有规则
-            if (!$rule_ids) {
-                $msg = '无权限';
-                $code = 402;
-                return false;
-            }
+            if (!$rule_ids && $code = 402) return false;
 
             // 超级管理员
-            if (in_array('*', $rule_ids)) {
-                return true;
-            }
+            if (in_array('*', $rule_ids)) return true;
 
             // 如果action为index，规则里有任意一个以$controller开头的权限即可
             if (strtolower($action) === 'index') {
@@ -118,10 +97,8 @@ class Admin extends InitApp
                     $controller_like = str_replace('\\', '\\\\', $controller);
                     $query->where('key', 'like', "$controller_like@%")->orWhere('key', $controller);
                 })->whereIn('id', $rule_ids)->first();
-                if ($rule) {
-                    return true;
-                }
-                $msg = '无权限';
+                if ($rule) return true;
+
                 $code = 402;
                 return false;
             }
@@ -131,11 +108,7 @@ class Admin extends InitApp
                 $query->where('key', "$controller@$action")->orWhere('key', $controller);
             })->whereIn('id', $rule_ids)->first();
 
-            if (!$rule) {
-                $msg = '无权限';
-                $code = 402;
-                return false;
-            }
+            if (!$rule && $code = 402) return false;
         }
 
         return true;
@@ -156,9 +129,7 @@ class Admin extends InitApp
         $sessionData = session($sessionKey);
         $now = time();
 
-        if (!$sessionData) {
-            return;
-        }
+        if (!$sessionData) return;
 
         $adminId = $sessionData['id'] ?? null;
         if (!$adminId) {
@@ -169,9 +140,7 @@ class Admin extends InitApp
         // 刷新session
         $lastUpdate = $sessionData['session_last_update_time'] ?? 0;
         $updateInterval = 2; // 秒
-        if (!$force && ($now - $lastUpdate) < $updateInterval) {
-            return;
-        }
+        if (!$force && ($now - $lastUpdate) < $updateInterval) return;
 
         $admin = AdminModel::find($adminId);
         if (!$admin) {
