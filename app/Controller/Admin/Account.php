@@ -19,7 +19,7 @@ class Account extends AdminController
     protected LoginService $loginService;
 
     /**
-     * 管理员资料
+     * 管理员
      * @return Response
      */
     #[Route(path: "/admin/account/index", methods: ['GET'], middleware: 'Admin', permission: 'admin.account.index')]
@@ -37,7 +37,7 @@ class Account extends AdminController
     #[Route(path: "/admin/account/login", methods: ['GET', 'POST'], middleware: 'Admin')]
     public function login(Request $request): Response
     {
-        if ($this->loginService::getSessionData('admin')) {
+        if (session('admin')) {
             return redirect(url('admin.index'));
         }
 
