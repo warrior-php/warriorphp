@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace App\Model;
 
+use Exception;
+use extend\Utils\Tree;
+
 /**
  * 角色表
  * @property integer $id              ID(主键)
@@ -26,4 +29,29 @@ class Role extends BaseModel
      * @var array
      */
     protected $fillable = ['name', 'rules', 'pid'];
+
+    /**
+     * 获取权限范围内的所有角色id
+     *
+     * @param bool $with_self
+     *
+     * @return array
+     * @throws Exception
+     */
+    public static function getScopeRoleIds(bool $with_self = false): array
+    {
+        if (!$admin = session('admin')) {
+            return [];
+        }
+        $role_ids = $admin['roles'];
+        $rules = Role::whereIn('id', $role_ids)->pluck('rules')->toArray();
+        if ($rules && in_array('*', $rules)) {
+            return Role::pluck('id')->toArray();
+        }
+
+        $roles = Role::get();
+        $tree = new Tree($roles);
+        $descendants = $tree->getDescendant($role_ids, $with_self);
+        return array_column($descendants, 'id');
+    }
 }

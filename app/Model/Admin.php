@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Model;
 
+use Exception;
+
 /**
  * 管理员表
  * @property integer $id             ID(主键)
@@ -48,6 +50,28 @@ class Admin extends BaseModel
         } else {
             $this->attributes['password'] = $value;
         }
+    }
+
+    /**
+     * 是否是超级管理员
+     *
+     * @param int $admin_id
+     *
+     * @return bool
+     * @throws Exception
+     */
+    public static function isSuperAdmin(int $admin_id = 0): bool
+    {
+        if (!$admin_id) {
+            // TODO 获取管理员指定字段
+            if (!$roles = admin('roles')) {
+                return false;
+            }
+        } else {
+            $roles = AdminRole::where('admin_id', $admin_id)->pluck('role_id');
+        }
+        $rules = Role::whereIn('id', $roles)->pluck('rules');
+        return $rules && in_array('*', $rules->toArray());
     }
 
 }
