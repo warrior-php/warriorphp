@@ -5,6 +5,7 @@ namespace App\Service\Admin;
 
 use App\Model\Admin;
 use Exception;
+use extend\Utils\Util;
 use support\exception\BusinessException;
 use support\Log;
 use support\Redis;
@@ -48,12 +49,13 @@ class LoginService
         }
         $admin = Admin::where('username', $params['username'])->first();
         // 密码校验失败：记录尝试次数
-        if (!$admin || !password_verify($params['password'], $admin->password)) {
+        if (!$admin || !Util::passwordVerify($params['password'], $admin->password)) {
             $attempts = Redis::incr($attemptsKey);
             Redis::expire($attemptsKey, $this->blockTime);
             Log::warning(trans('key9'), ['username' => $params['username'], 'ip' => $ip, 'attempts' => $attempts]);
             throw new BusinessException(message: trans('key9'));
         }
+
         // 更新登录记录
         $admin->login_at = date('Y-m-d H:i:s');
         $admin->login_ip = $ip;
