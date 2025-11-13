@@ -2,7 +2,7 @@
 
 namespace App\Service\Admin;
 
-use App\Model\Admin as AdminModel;
+use App\Model\AdminModel;
 use Exception;
 use support\exception\BusinessException;
 use support\Log;
