@@ -10,7 +10,7 @@ use Attribute;
  * 用法：
  * #[RouteAttr(path: "/user/login", methods: ["POST"], permission: "user.login")]
  */
-#[Attribute(Attribute::TARGET_METHOD)]
+#[Attribute(Attribute::TARGET_CLASS | Attribute::TARGET_METHOD | Attribute::TARGET_FUNCTION)]
 class Route
 {
     /**
