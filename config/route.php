@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 use App\Core\RouteLoader;
-use Support\Request;
+use support\Request;
 use Webman\Route;
 
 // 禁用默认路由
