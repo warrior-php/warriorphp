@@ -12,7 +12,7 @@ class Index extends AdminController
     /**
      * @return Response
      */
-    #[Route(path: "/admin/index", methods: ['GET'], middleware: 'Admin', permission: 'admin.index')]
+    #[Route(path: "/admin/index", methods: ['GET'], middleware: 'AdminMiddleware', permission: 'admin.index')]
     public function index(): Response
     {
         return view('admin/index');

@@ -11,7 +11,7 @@ class Index extends WebController
     /**
      * @return string
      */
-    #[Route(path: "/install/index", methods: ['GET'], middleware: 'Web')]
+    #[Route(path: "/install/index", methods: ['GET'], middleware: 'WebMiddleware')]
     public function index(): string
     {
         return 'index';
