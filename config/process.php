@@ -14,7 +14,6 @@ declare(strict_types=1);
  * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-use App\Core\Http;
 use support\Log;
 use Support\Request;
 
@@ -22,7 +21,7 @@ global $argv;
 
 return [
     'Warrior' => [
-        'handler'     => Http::class,
+        'handler'     => App\Core\Http::class,
         'listen'      => 'http://0.0.0.0:8888',
         'count'       => 1,//cpu_count() * 4,
         'user'        => '',
@@ -37,9 +36,15 @@ return [
             'publicPath'   => public_path()
         ]
     ],
+
+    // 定时任务
+    'Task'    => [
+        'handler' => App\Process\Task::class
+    ],
+
     // File update detection and automatic reload
     'Monitor' => [
-        'handler'     => \App\Core\Monitor::class,                // 热重载进程类
+        'handler'     => App\Core\Monitor::class,                // 热重载进程类
         'reloadable'  => false,                         // 是否允许子进程自动重载
         'constructor' => [
             'monitorDir'        => array_merge([

@@ -15,5 +15,6 @@ declare(strict_types=1);
  */
 
 return [
-    support\bootstrap\Session::class
+    support\bootstrap\Session::class,
+    WarriorPHP\Event\BootStrap::class,
 ];

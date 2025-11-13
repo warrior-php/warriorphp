@@ -41,7 +41,8 @@
     "godruoyi/php-snowflake": "^3.2",
     "webman/redis": "^2.1",
     "warrior-php/console": "^1.0",
-    "warrior-php/event": "^1.0"
+    "warrior-php/event": "^1.0",
+    "workerman/crontab": "^1.0"
   },
   "suggest": {
     "ext-event": "For better performance. "
