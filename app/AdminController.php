@@ -3,12 +3,15 @@
 namespace App;
 
 use App\Core\Route;
+use App\Middleware\AdminMiddleware;
 use Exception;
+use support\annotation\Middleware;
 use support\Request;
 use support\Response;
 use Webman\Captcha\CaptchaBuilder;
 use Webman\Captcha\PhraseBuilder;
 
+#[Middleware(AdminMiddleware::class)]
 class AdminController extends BaseController
 {
     /**
