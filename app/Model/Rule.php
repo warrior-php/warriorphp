@@ -2,8 +2,6 @@
 
 namespace App\Model;
 
-use App\BaseModel;
-
 /**
  * 权限规则
  * @property integer $id             ID(主键)

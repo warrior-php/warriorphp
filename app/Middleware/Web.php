@@ -4,7 +4,7 @@ namespace App\Middleware;
 
 use App\Middleware\Traits\Authorize;
 
-class Web
+class Web extends InitApp
 {
     use Authorize;
 }

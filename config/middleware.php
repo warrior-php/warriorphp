@@ -14,11 +14,4 @@ declare(strict_types=1);
  * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-use App\Middleware\AppSetup;
-
-return [
-    // 全局中间件
-    '' => [
-        AppSetup::class,
-    ]
-];
+return [];

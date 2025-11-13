@@ -10,7 +10,7 @@ use Webman\Http\Request;
 use Webman\Http\Response;
 use Webman\MiddlewareInterface;
 
-class AppSetup implements MiddlewareInterface
+class InitApp implements MiddlewareInterface
 {
     /**
      * 系统版本
@@ -19,9 +19,8 @@ class AppSetup implements MiddlewareInterface
      */
     protected static string $version = 'v1.0.0';
 
+
     /**
-     * 处理请求
-     *
      * @param Request  $request
      * @param callable $handler
      *

@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace App\Model;
 
-use App\BaseModel;
-
 /**
  * 管理员表
  * @property integer $id             ID(主键)

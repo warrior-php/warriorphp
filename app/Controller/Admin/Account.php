@@ -34,7 +34,7 @@ class Account extends AdminController
      * @return Response
      * @throws Exception
      */
-    #[Route(path: "/admin/account/login", methods: ['GET', 'POST'])]
+    #[Route(path: "/admin/account/login", methods: ['GET', 'POST'], middleware: 'Admin')]
     public function login(Request $request): Response
     {
         if ($this->loginService::getSessionData('admin')) {
