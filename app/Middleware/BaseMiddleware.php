@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Core;
+namespace App\Middleware;
 
 use Exception;
 use support\exception\BusinessException;
@@ -10,7 +10,7 @@ use Webman\Http\Request;
 use Webman\Http\Response;
 use Webman\MiddlewareInterface;
 
-class Middleware implements MiddlewareInterface
+class BaseMiddleware implements MiddlewareInterface
 {
     /**
      * 系统版本
@@ -18,7 +18,6 @@ class Middleware implements MiddlewareInterface
      * @var string
      */
     protected static string $version = 'v1.0.0';
-
 
     /**
      * @param Request  $request

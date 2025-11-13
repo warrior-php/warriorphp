@@ -1,8 +1,8 @@
 <?php
 declare(strict_types=1);
 
-use App\Core\Http;
-use App\Core\Monitor;
+use App\Http;
+use App\Process\Monitor;
 use App\Process\Task;
 use support\Log;
 use support\Request;

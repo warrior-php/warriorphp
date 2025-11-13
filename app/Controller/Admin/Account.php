@@ -2,8 +2,8 @@
 
 namespace App\Controller\Admin;
 
-use App\AdminController;
-use App\Core\Route;
+use App\Controller\AdminController;
+use App\Route;
 use App\Service\Admin\LoginService;
 use DI\Attribute\Inject;
 use Exception;

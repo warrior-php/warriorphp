@@ -3,19 +3,19 @@ declare(strict_types=1);
 
 namespace App\Middleware;
 
-use App\Core\Middleware;
-use App\Core\Route as RouteAttr;
 use App\Model\Admin as AdminModel;
 use App\Model\AdminRole as AdminRoleModel;
 use App\Model\Role as RoleModel;
 use App\Model\Rule as RuleModel;
+use App\Route as RouteAttr;
 use Exception;
 use ReflectionException;
 use ReflectionMethod;
 use Webman\Http\Request;
 use Webman\Http\Response;
+use Webman\MiddlewareInterface;
 
-class Admin extends Middleware
+class Admin implements MiddlewareInterface
 {
     /**
      * 处理请求
@@ -28,7 +28,6 @@ class Admin extends Middleware
      */
     public function process(Request $request, callable $handler): Response
     {
-        $response = parent::process($request, $handler);
         $controller = $request->controller;
         $action = $request->action;
 
@@ -45,7 +44,7 @@ class Admin extends Middleware
             return view('error', [], 'public')->withStatus($code);
         }
         // OPTIONS 请求直接返回空响应
-        return $request->method() === 'OPTIONS' ? response() : $response;
+        return $request->method() == 'OPTIONS' ? response('') : $handler($request);
     }
 
 

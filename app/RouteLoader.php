@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Core;
+namespace App;
 
-use App\Core\Route as RouteAttr;
+use App\Route as RouteAttr;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use ReflectionClass;
@@ -136,7 +136,7 @@ class RouteLoader
      */
     protected static function resolveMiddleware(string $middleware): string
     {
-        return class_exists($middleware) ? $middleware : "\\App\\Middleware\\$middleware";
+        return class_exists($middleware) ? $middleware : "\\App\\BaseMiddleware\\$middleware";
     }
 
     /**

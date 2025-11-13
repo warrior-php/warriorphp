@@ -1,16 +1,16 @@
 <?php
 
-namespace App;
+namespace App\Controller;
 
-use App\Core\Middleware;
-use App\Core\Validator;
-use support\annotation\Middleware as AnnotationMiddleware;
+use App\Middleware\BaseMiddleware;
+use App\Validator;
+use support\annotation\Middleware;
 use support\exception\BusinessException;
 
 /**
  * 注意：此控制注解路由无效
  */
-#[AnnotationMiddleware(Middleware::class)]
+#[Middleware(BaseMiddleware::class)]
 abstract class BaseController
 {
     /**

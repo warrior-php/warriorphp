@@ -2,8 +2,8 @@
 
 namespace App\Controller\User;
 
-use App\Core\Route;
-use App\WebController;
+use App\Controller\WebController;
+use App\Route;
 use support\Response;
 
 class Index extends WebController

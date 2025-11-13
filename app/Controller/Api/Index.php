@@ -2,8 +2,8 @@
 
 namespace App\Controller\Api;
 
-use App\ApiController;
-use App\Core\Route;
+use App\Controller\ApiController;
+use App\Route;
 use support\Response;
 
 class Index extends ApiController

@@ -2,9 +2,7 @@
 
 namespace App\Middleware;
 
-use App\Core\Middleware;
-
-class Api extends Middleware
+class Api extends BaseMiddleware
 {
 
 }

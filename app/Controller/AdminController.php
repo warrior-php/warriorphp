@@ -1,9 +1,9 @@
 <?php
 
-namespace App;
+namespace App\Controller;
 
-use App\Core\Route;
 use App\Middleware\Admin;
+use App\Route;
 use Exception;
 use support\annotation\Middleware;
 use support\Request;

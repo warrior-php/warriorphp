@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-use App\Core\View;
+use App\View;
 
 return [
     'handler' => View::class,

@@ -9,7 +9,7 @@ use Webman\MiddlewareInterface;
 
 /**
  * Class StaticFile
- * @package App\Middleware
+ * @package App\BaseMiddleware
  */
 class StaticFile implements MiddlewareInterface
 {

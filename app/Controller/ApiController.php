@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Controller;
 
 use App\Middleware\Api;
 use support\annotation\Middleware;

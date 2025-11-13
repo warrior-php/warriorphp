@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Controller;
 
 use App\Middleware\Web;
 use support\annotation\Middleware;

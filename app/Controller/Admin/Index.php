@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
-use App\AdminController;
-use App\Core\Route;
+use App\Controller\AdminController;
+use App\Route;
 use support\Response;
 
 class Index extends AdminController

@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\Controller\Install;
 
-use App\Core\Route;
-use App\WebController;
+use App\Controller\WebController;
+use App\Route;
 
 class Index extends WebController
 {
