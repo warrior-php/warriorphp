@@ -8,7 +8,7 @@ use support\exception\BusinessException;
 /**
  * 注意：此控制注解路由无效
  */
-class BaseController
+abstract class BaseController
 {
     /**
      * 通用验证方法

@@ -54,13 +54,11 @@ class Account extends AdminController
     /**
      * 管理员退出
      *
-     * @param Request $request
-     *
      * @return Response
      * @throws Exception
      */
     #[Route(path: "/admin/account/logout", methods: ['GET'], middleware: 'Admin', permission: 'admin.logout')]
-    public function logout(Request $request): Response
+    public function logout(): Response
     {
         $this->loginService->logout();
         return result(302, trans('key27'), ['url' => url('admin.account.login')]);
