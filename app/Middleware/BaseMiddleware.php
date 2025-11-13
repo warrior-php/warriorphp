@@ -30,6 +30,7 @@ class BaseMiddleware implements MiddlewareInterface
     {
         $this->initPathConst();
         $this->initLanguage($request);
+        clearstatcache();
         // 检查是否正常安装
         $isInstalled = file_exists(base_path('/resource/install.lock'));
         $controller = request()->controller ?? '';
