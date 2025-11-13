@@ -58,57 +58,9 @@ class LoginService
         $admin->login_ip = $ip;
         $admin->save();
         // 仅保存必要字段到 session
-        session()->set('admin', [
-            'id'       => $admin->id,
-            'username' => $admin->username,
-            'mobile'   => $admin->mobile,
-            'email'    => $admin->email,
-            'nickname' => $admin->nickname,
-            'login_ip' => $admin->login_ip,
-            'login_at' => $admin->login_at
-        ]);
+        session()->set('admin', $admin->toArray());
         // 登录成功：重置失败计数
         Redis::del($attemptsKey);
-    }
-
-    /**
-     * 获取用户 Session 数据
-     *
-     * @param string $sessionKey
-     *
-     * @return array|null
-     * @throws Exception
-     */
-    public static function getSessionData(string $sessionKey): ?array
-    {
-        return session($sessionKey) ?: null;
-    }
-
-
-    /**
-     * 刷新会话
-     *
-     * @param string $sessionKey
-     * @param bool   $force
-     *
-     * @return void|null
-     * @throws Exception
-     */
-    public function refreshSession(string $sessionKey, bool $force = false)
-    {
-        $sessionData = session($sessionKey);
-        if (!$sessionData) {
-            return null;
-        }
-        $id = $sessionData['id'];
-        $time_now = time();
-        // session在2秒内不刷新
-        $session_ttl = 2;
-        $session_last_update_time = session('admin.session_last_update_time', 0);
-        if (!$force && $time_now - $session_last_update_time < $session_ttl) {
-            return null;
-        }
-        $session = request()->session();
     }
 
     /**
