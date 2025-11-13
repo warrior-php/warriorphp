@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Validator;
 
-use App\Validator;
+use App\Core\Validator;
 use Respect\Validation\Validator as v;
 
 /**

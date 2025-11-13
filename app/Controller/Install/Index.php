@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Controller\Install;
 
 use App\Controller\Common;
-use App\Route;
+use App\Core\Route;
 
 class Index extends Common
 {

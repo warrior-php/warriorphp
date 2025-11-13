@@ -3,7 +3,7 @@
 namespace App\Controller\Api;
 
 use App\Controller\Common;
-use App\Route;
+use App\Core\Route;
 use support\Response;
 
 class Index extends Common

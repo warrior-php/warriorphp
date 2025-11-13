@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Route;
+use App\Core\Route;
 use support\Response;
 
 class Icon

@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Route;
-use App\Validator;
+use App\Core\Route;
+use App\Core\Validator;
 use Exception;
 use support\exception\BusinessException;
 use support\Request;

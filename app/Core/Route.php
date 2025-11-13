@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Core;
 
 use Attribute;
 
@@ -38,11 +38,11 @@ class Route
      * @param array       $methods    请求方法
      * @param string|null $middleware 权限
      */
-    public function __construct(string $path, array $methods = ['ANY'], ?string $permission = null, ?string $middleware = null)
+    public function __construct(string $path, array $methods = ['ANY'], ?string $middleware = null, ?string $permission = null)
     {
         $this->path = $path;
         $this->methods = $methods;
-        $this->permission = $permission;
         $this->middleware = $middleware;
+        $this->permission = $permission;
     }
 }

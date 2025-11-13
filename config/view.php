@@ -14,7 +14,7 @@ declare(strict_types=1);
  * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-use App\View;
+use App\Core\View;
 
 return [
     'handler' => View::class,

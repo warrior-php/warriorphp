@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace App;
+namespace App\Core;
 
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
-use Twig\Loader\FilesystemLoader;
 use Twig\Extension\AbstractExtension;
+use Twig\Loader\FilesystemLoader;
 use Twig\TwigFunction;
 use Webman\View as WebmanView;
 

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Middleware;
 
-use App\Service\AdminAuthorize;
+use App\Middleware\Traits\Authorize;
 use DI\Attribute\Inject;
 use Exception;
 use support\View;
@@ -11,13 +11,15 @@ use Webman\Http\Request;
 use Webman\Http\Response;
 use Webman\MiddlewareInterface;
 
-class AccessControl implements MiddlewareInterface
+class Admin implements MiddlewareInterface
 {
+    use Authorize;
+
     /**
-     * @var AdminAuthorize
+     * @var Admin
      */
     #[Inject]
-    protected AdminAuthorize $authorize;
+    protected Admin $adminAuthorize;
 
     /**
      * 对外提供的鉴权中间件
@@ -38,7 +40,7 @@ class AccessControl implements MiddlewareInterface
         $redirectUrl = '';
         $account = null;
 
-        if (!$this->authorize::access($controller, $action, $code, $msg, $redirectUrl, $account)) {
+        if (!$this->adminAuthorize::access($controller, $action, $code, $msg, $redirectUrl, $account)) {
             if ($request->expectsJson()) {
                 $response = json(['code' => $code, 'msg' => $msg]);
             } else {

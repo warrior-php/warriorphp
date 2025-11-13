@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App;
+namespace App\Core;
 
 use Respect\Validation\Exceptions\NestedValidationException;
 use Respect\Validation\Validator as v;

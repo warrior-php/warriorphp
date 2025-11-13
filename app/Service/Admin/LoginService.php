@@ -1,7 +1,6 @@
 <?php
-declare(strict_types=1);
 
-namespace App\Service;
+namespace App\Service\Admin;
 
 use App\Model\Admin as AdminModel;
 use Exception;
@@ -9,10 +8,22 @@ use support\exception\BusinessException;
 use support\Log;
 use support\Redis;
 
-class Admin extends AdminAuthorize
+class LoginService
 {
     /**
-     * 管理员登录
+     * 最大登录尝试次数
+     * @var int
+     */
+    protected int $maxAttempts = 5;
+
+    /**
+     * 登录失败封禁时间（秒）
+     * @var int
+     */
+    protected int $blockTime = 300;
+
+    /**
+     * 登录主流程
      *
      * @param array $params
      *
@@ -61,7 +72,47 @@ class Admin extends AdminAuthorize
     }
 
     /**
-     * 退出登录
+     * 获取用户 Session 数据
+     *
+     * @param string $sessionKey
+     *
+     * @return array|null
+     * @throws Exception
+     */
+    public static function getSessionData(string $sessionKey): ?array
+    {
+        return session($sessionKey) ?: null;
+    }
+
+
+    /**
+     * 刷新会话
+     *
+     * @param string $sessionKey
+     * @param bool   $force
+     *
+     * @return void|null
+     * @throws Exception
+     */
+    public function refreshSession(string $sessionKey, bool $force = false)
+    {
+        $sessionData = session($sessionKey);
+        if (!$sessionData) {
+            return null;
+        }
+        $id = $sessionData['id'];
+        $time_now = time();
+        // session在2秒内不刷新
+        $session_ttl = 2;
+        $session_last_update_time = session('admin.session_last_update_time', 0);
+        if (!$force && $time_now - $session_last_update_time < $session_ttl) {
+            return null;
+        }
+        $session = request()->session();
+    }
+
+    /**
+     * 退出
      * @return void
      * @throws Exception
      */
@@ -69,5 +120,4 @@ class Admin extends AdminAuthorize
     {
         session()->delete('admin');
     }
-
 }

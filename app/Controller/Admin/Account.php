@@ -3,8 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Controller\Common;
-use App\Route;
-use App\Service\Admin as AdminService;
+use App\Core\Route;
+use App\Service\Admin\LoginService;
 use DI\Attribute\Inject;
 use Exception;
 use support\Request;
@@ -13,16 +13,16 @@ use support\Response;
 class Account extends Common
 {
     /**
-     * @var AdminService
+     * @var LoginService
      */
     #[Inject]
-    protected AdminService $admin;
+    protected LoginService $loginService;
 
     /**
      * 管理员资料
      * @return Response
      */
-    #[Route(path: "/admin/account/index", methods: ['GET'], permission: 'admin.account.index')]
+    #[Route(path: "/admin/account/index", methods: ['GET'], middleware: 'Admin', permission: 'admin.account.index')]
     public function profile(): Response
     {
         return view('admin/account/index');
@@ -37,14 +37,14 @@ class Account extends Common
     #[Route(path: "/admin/account/login", methods: ['GET', 'POST'])]
     public function login(Request $request): Response
     {
-        if ($this->admin::getSessionData('admin')) {
+        if ($this->loginService::getSessionData('admin')) {
             return redirect(url('admin.index'));
         }
 
         if ($request->isAjax()) {
             $params = request()->post();
             $this->validate('Admin', $params, 'login');
-            $this->admin->login($params);
+            $this->loginService->login($params);
             return result(302, trans('key27'), ['url' => url('admin.index')]);
         }
 
@@ -59,10 +59,10 @@ class Account extends Common
      * @return Response
      * @throws Exception
      */
-    #[Route(path: "/admin/account/logout", methods: ['GET'], permission: 'admin.logout')]
+    #[Route(path: "/admin/account/logout", methods: ['GET'], middleware: 'Admin', permission: 'admin.logout')]
     public function logout(Request $request): Response
     {
-        $this->admin->logout();
+        $this->loginService->logout();
         return result(302, trans('key27'), ['url' => url('admin.account.login')]);
     }
 }

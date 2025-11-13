@@ -14,7 +14,7 @@ declare(strict_types=1);
  * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-use App\Process\Http;
+use App\Core\Http;
 use support\Log;
 use Support\Request;
 
@@ -39,7 +39,7 @@ return [
     ],
     // File update detection and automatic reload
     'Monitor' => [
-        'handler'     => \App\Process\Monitor::class,                // 热重载进程类
+        'handler'     => \App\Core\Monitor::class,                // 热重载进程类
         'reloadable'  => false,                         // 是否允许子进程自动重载
         'constructor' => [
             'monitorDir'        => array_merge([
