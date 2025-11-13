@@ -75,64 +75,67 @@ class Admin extends InitApp
         $permissionCode = $routeAttr->permission ?? null;
         self::refreshSession();
         $admin = session('admin');
-        if ($permissionCode && !$admin) {
-            // 获取登录信息
-            $msg = trans('key5');
-            $code = 401;
-            return false;
-        }
-
-        $roles = $admin['roles'];
-        // 当前管理员无角色
-        if (!$roles) {
-            $msg = '无权限';
-            $code = 402;
-            return false;
-        }
-
-        $rules = Role::whereIn('id', $roles)->pluck('rules');
-        $rule_ids = [];
-        foreach ($rules as $rule_string) {
-            if (!$rule_string) {
-                continue;
+        if ($permissionCode) {
+            if (!$admin) {
+                // 获取登录信息
+                $msg = trans('key5');
+                $code = 401;
+                return false;
             }
-            $rule_ids = array_merge($rule_ids, explode(',', $rule_string));
-        }
-        // 角色没有规则
-        if (!$rule_ids) {
-            $msg = '无权限';
-            $code = 402;
-            return false;
-        }
 
-        // 超级管理员
-        if (in_array('*', $rule_ids)) {
-            return true;
-        }
+            // 验证权限
+            $roles = $admin['roles'];
+            // 当前管理员无角色
+            if (!$roles) {
+                $msg = '无权限';
+                $code = 402;
+                return false;
+            }
 
-        // 如果action为index，规则里有任意一个以$controller开头的权限即可
-        if (strtolower($action) === 'index') {
-            $rule = Rule::where(function ($query) use ($controller, $action) {
-                $controller_like = str_replace('\\', '\\\\', $controller);
-                $query->where('key', 'like', "$controller_like@%")->orWhere('key', $controller);
-            })->whereIn('id', $rule_ids)->first();
-            if ($rule) {
+            $rules = Role::whereIn('id', $roles)->pluck('rules');
+            $rule_ids = [];
+            foreach ($rules as $rule_string) {
+                if (!$rule_string) {
+                    continue;
+                }
+                $rule_ids = array_merge($rule_ids, explode(',', $rule_string));
+            }
+            // 角色没有规则
+            if (!$rule_ids) {
+                $msg = '无权限';
+                $code = 402;
+                return false;
+            }
+
+            // 超级管理员
+            if (in_array('*', $rule_ids)) {
                 return true;
             }
-            $msg = '无权限';
-            $code = 402;
-            return false;
-        }
 
-        // 查询是否有当前控制器的规则
-        $rule = Rule::where(function ($query) use ($controller, $action) {
-            $query->where('key', "$controller@$action")->orWhere('key', $controller);
-        })->whereIn('id', $rule_ids)->first();
+            // 如果action为index，规则里有任意一个以$controller开头的权限即可
+            if (strtolower($action) === 'index') {
+                $rule = Rule::where(function ($query) use ($controller, $action) {
+                    $controller_like = str_replace('\\', '\\\\', $controller);
+                    $query->where('key', 'like', "$controller_like@%")->orWhere('key', $controller);
+                })->whereIn('id', $rule_ids)->first();
+                if ($rule) {
+                    return true;
+                }
+                $msg = '无权限';
+                $code = 402;
+                return false;
+            }
 
-        if (!$rule) {
-            $msg = '无权限';
-            $code = 402;
-            return false;
+            // 查询是否有当前控制器的规则
+            $rule = Rule::where(function ($query) use ($controller, $action) {
+                $query->where('key', "$controller@$action")->orWhere('key', $controller);
+            })->whereIn('id', $rule_ids)->first();
+
+            if (!$rule) {
+                $msg = '无权限';
+                $code = 402;
+                return false;
+            }
         }
 
         return true;
