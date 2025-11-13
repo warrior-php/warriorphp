@@ -2,7 +2,7 @@
 
 namespace App\Middleware;
 
-class Api extends InitApp
+class ApiMiddleware extends InitApp
 {
 
 }

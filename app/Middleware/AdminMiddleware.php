@@ -3,18 +3,18 @@ declare(strict_types=1);
 
 namespace App\Middleware;
 
-use App\Model\Admin as AdminModel;
+use App\Model\AdminModel as AdminModel;
 use App\Core\Route as RouteAttr;
-use App\Model\AdminRole;
-use App\Model\Role;
-use App\Model\Rule;
+use App\Model\AdminRoleModel;
+use App\Model\RoleModel;
+use App\Model\RuleModel;
 use Exception;
 use ReflectionException;
 use ReflectionMethod;
 use Webman\Http\Request;
 use Webman\Http\Response;
 
-class Admin extends InitApp
+class AdminMiddleware extends InitApp
 {
     /**
      * 处理请求
@@ -79,7 +79,7 @@ class Admin extends InitApp
             // 当前管理员无角色
             if (!$roles && $code = 402) return false;
 
-            $rules = Role::whereIn('id', $roles)->pluck('rules');
+            $rules = RoleModel::whereIn('id', $roles)->pluck('rules');
             $rule_ids = [];
             foreach ($rules as $rule_string) {
                 if (!$rule_string) continue;
@@ -93,7 +93,7 @@ class Admin extends InitApp
 
             // 如果action为index，规则里有任意一个以$controller开头的权限即可
             if (strtolower($action) === 'index') {
-                $rule = Rule::where(function ($query) use ($controller, $action) {
+                $rule = RuleModel::where(function ($query) use ($controller, $action) {
                     $controller_like = str_replace('\\', '\\\\', $controller);
                     $query->where('key', 'like', "$controller_like@%")->orWhere('key', $controller);
                 })->whereIn('id', $rule_ids)->first();
@@ -104,7 +104,7 @@ class Admin extends InitApp
             }
 
             // 查询是否有当前控制器的规则
-            $rule = Rule::where(function ($query) use ($controller, $action) {
+            $rule = RuleModel::where(function ($query) use ($controller, $action) {
                 $query->where('key', "$controller@$action")->orWhere('key', $controller);
             })->whereIn('id', $rule_ids)->first();
 
@@ -162,7 +162,7 @@ class Admin extends InitApp
 
         $admin = $admin->toArray();
         // 更新权限与缓存时间
-        $admin['roles'] = AdminRole::where('admin_id', $adminId)->pluck('role_id')->toArray();
+        $admin['roles'] = AdminRoleModel::where('admin_id', $adminId)->pluck('role_id')->toArray();
         $admin['session_last_update_time'] = $now;;
 
         $session->set('admin', $admin);
