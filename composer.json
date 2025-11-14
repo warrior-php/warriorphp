@@ -29,6 +29,7 @@
     "ext-posix": "*",
     "ext-pcntl": "*",
     "ext-pdo": "*",
+    "ext-bcmath": "*",
     "workerman/webman-framework": "^2.1",
     "monolog/monolog": "^2.0",
     "webman/database": "^2.1",
@@ -45,8 +46,7 @@
     "webman/redis": "^2.1",
     "warrior-php/console": "^1.0",
     "warrior-php/event": "^1.0",
-    "workerman/crontab": "^1.0",
-    "ext-bcmath": "*"
+    "workerman/crontab": "^1.0"
   },
   "suggest": {
     "ext-event": "For better performance. "

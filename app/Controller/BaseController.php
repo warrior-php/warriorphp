@@ -46,4 +46,5 @@ abstract class BaseController
         /** @var Validator $validator */
         $validator->validate($data);
     }
+
 }

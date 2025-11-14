@@ -23,7 +23,7 @@ class Account extends AdminController
      * 管理员
      * @return Response
      */
-    #[Route(path: "/admin/account/index", methods: ['GET'], permission: 'admin.account.index')]
+    #[Route(path: "/admin/account/index", methods: ['GET'], permission: 'admin.account.index',middleware: 'XXXX')]
     public function profile(): Response
     {
         return view('admin/account/index');
@@ -41,7 +41,6 @@ class Account extends AdminController
         if (session('admin')) {
             return redirect(url('admin.index'));
         }
-
         if ($request->isAjax()) {
             $params = request()->post();
             $this->validate('Admin', $params, 'login');
