@@ -36,18 +36,22 @@ class LoginService
     {
         $ip = request()->getRealIp();
         $attemptsKey = 'admin_login:attempts:' . $ip;
+
         // 登录失败次数检查
         if (Redis::get($attemptsKey) >= $this->maxAttempts) {
             throw new BusinessException(message: trans('key7'));
         }
+
         // 图形验证码校验
         $captcha = mb_strtolower($params['captcha'] ?? '');
         $sessionCaptcha = mb_strtolower(session('admin-login-captcha') ?? '');
         session()->delete('admin-login-captcha');
+
         if ($captcha !== $sessionCaptcha) {
             throw new BusinessException(message: trans('key8'));
         }
         $admin = Admin::where('username', $params['username'])->first();
+
         // 密码校验失败：记录尝试次数
         if (!$admin || !Util::passwordVerify($params['password'], $admin->password)) {
             $attempts = Redis::incr($attemptsKey);
@@ -60,6 +64,7 @@ class LoginService
         $admin->login_at = date('Y-m-d H:i:s');
         $admin->login_ip = $ip;
         $admin->save();
+
         // 仅保存必要字段到 session
         session()->set('admin', $admin->toArray());
         // 登录成功：重置失败计数

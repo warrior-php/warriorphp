@@ -63,14 +63,17 @@ class MenuService
             }
             return;
         }
+
         $children = $menu_tree['children'] ?? [];
         unset($menu_tree['children']);
+
         if ($old_menu = self::get($menu_tree['key'])) {
             $pid = $old_menu['id'];
             Rule::where('key', $menu_tree['key'])->update($menu_tree);
         } else {
             $pid = static::add($menu_tree);
         }
+
         foreach ($children as $menu) {
             $menu['pid'] = $pid;
             static::import($menu);
@@ -90,6 +93,7 @@ class MenuService
         if (!$item) {
             return;
         }
+
         // 子规则一起删除
         $delete_ids = $children_ids = [$item['id']];
         while ($children_ids) {
@@ -146,6 +150,7 @@ class MenuService
                 }
             }
         }
+
         foreach ($children as $child) {
             $values = array_merge($values, static::column($child, $column, $index));
         }
