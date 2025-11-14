@@ -98,9 +98,7 @@ class RouteLoader
                     }
 
                     // 注册路由
-                    $route = $httpMethod === 'ANY'
-                        ? Route::any($path, $callback)
-                        : Route::add($httpMethod, $path, $callback);
+                    $route = $httpMethod === 'ANY' ? Route::any($path, $callback) : Route::add($httpMethod, $path, $callback);
 
                     $route->name($routeName);
 
