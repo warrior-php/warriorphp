@@ -33,6 +33,14 @@ return [
         'handler' => Task::class
     ],
 
+    // Websocket
+    'Pusher'  => [
+        // 这里指定进程类，就是上面定义的Pusher类
+        'handler' => App\Process\Pusher::class,
+        'listen'  => 'websocket://0.0.0.0:1234',
+        'count'   => 1,
+    ],
+
     // File update detection and automatic reload
     'Monitor' => [
         'handler'     => Monitor::class, // 热重载进程类
